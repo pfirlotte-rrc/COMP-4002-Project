@@ -6,9 +6,7 @@ export function Footer () {
   return (
     <footer  className="Footer">
       <div className="Footer-Content">
-        <div>
-          <p>&copy; {currentYear} Works on My Computer LLC. All rights reserved.</p>
-        </div>
+        <p className="Copyright-Text">&copy; {currentYear} Works on My Computer LLC. All rights reserved.</p>
         <div className="Footer-Project-Link">
           <a href="https://github.com/pfirlotte-rrc/COMP-4002-Project" target="_blank">
           <h2>GitHub Project</h2>
