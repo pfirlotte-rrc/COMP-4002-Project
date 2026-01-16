@@ -15,16 +15,23 @@ export function Footer () {
     const currentYear = new Date().getFullYear();
 
   return (
-    <footer  className="Footer">
-      <div className="Footer-Content">
+    <footer className="Footer">
         <p className="Copyright-Text">&copy; {currentYear} Works on My Computer LLC. All rights reserved.</p>
           <a className="Footer-Project-Link" href="https://github.com/pfirlotte-rrc/COMP-4002-Project" target="_blank">
           <h2>GitHub Project</h2>
           </a>
-        <div className="Footer-Links">
-          <h3>Group Members</h3>
-        </div>
-      </div>
+          <h3 className="Group-Member-Tag">Group Members</h3>
+          <a className="Group-Member-List">
+            <ul>
+              {groupMembers.map((member, index) => (
+                <li key={index} className="Group-Member-Item">
+                  <a href={member.gitHubLink} target="_blank" className="Group-Member-Link">
+                  {member.memberName}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </a>
     </footer>
   );
 };
