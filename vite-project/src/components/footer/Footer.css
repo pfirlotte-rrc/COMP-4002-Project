@@ -1,0 +1,53 @@
+.Footer {
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  padding: 1rem 1;
+  margin-top: auto;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.Copyright-Text {
+  position: sticky;
+  bottom: 10px;
+  right: 10px;
+}
+
+.Footer-Project-Link {
+  position: absolute;
+  bottom: 0px;
+  left: 15px;
+}
+
+.Footer-Project-Link a:link {
+  color: blue;
+}
+
+.Footer-Project-Link a:hover {
+  color: hotpink;
+}
+
+.Footer-Project-Link a:visited {
+  color: purple;
+}
+
+.Footer-Links {
+  color: black;
+  position: absolute;
+  bottom: 50px;
+  left: 20px;
+}
+
+.Footer-Links a:link {
+  color: blue;
+}
+
+.Footer-Links a:hover {
+  color: hotpink;
+}
+
+.Footer-Links a:visited {
+  color: purple;
+}
