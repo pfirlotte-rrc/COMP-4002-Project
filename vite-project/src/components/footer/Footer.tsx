@@ -25,7 +25,7 @@ export function Footer () {
             <ul>
               {groupMembers.map((member, index) => (
                 <li key={index} className="Group-Member-Item">
-                  <a href={member.gitHubLink} target="_blank" className="Group-Member-Link">
+                  <a href={member.gitHubLink} target="_blank">
                   {member.memberName}
                   </a>
                 </li>
