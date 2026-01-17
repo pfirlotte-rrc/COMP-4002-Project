@@ -1,6 +1,6 @@
 .Footer {
-  background-color: #000000;
-  color: rgb(255, 255, 255);
+  background-color: black;
+  color: black;
   padding: 1rem 1;
   margin-top: auto;
   position: fixed;
@@ -9,45 +9,49 @@
   width: 100%;
 }
 
+.Footer a {
+  text-decoration: none;
+}
+
+.Footer a:hover {
+  text-decoration: underline;
+}
+
+.Group-Member-Tag {
+  color: white;
+  position: absolute;
+  bottom: 73px;
+  left: 60px;
+}
+
 .Copyright-Text {
+  color: white;
   position: sticky;
   bottom: 10px;
   right: 10px;
 }
 
 .Footer-Project-Link {
+  color: cornflowerblue;
+}
+
+.Footer-Project-Link:visited {
+  color: fuchsia;
+}
+
+.Group-Member-List {
   position: absolute;
+  font-size: 18px;
+  font-weight: bold;
   bottom: 0px;
-  left: 15px;
-}
-
-.Footer-Project-Link a:link {
-  color: blue;
-}
-
-.Footer-Project-Link a:hover {
-  color: hotpink;
-}
-
-.Footer-Project-Link a:visited {
-  color: purple;
-}
-
-.Footer-Links {
-  color: black;
-  position: absolute;
-  bottom: 50px;
   left: 20px;
+  text-align: left;
 }
 
-.Footer-Links a:link {
-  color: blue;
+.Group-Member a:link {
+  color: cornflowerblue;
 }
 
-.Footer-Links a:hover {
-  color: hotpink;
-}
-
-.Footer-Links a:visited {
-  color: purple;
+.Group-Member a:visited {
+  color: fuchsia;
 }
