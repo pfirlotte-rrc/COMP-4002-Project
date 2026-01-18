@@ -1,3 +1,4 @@
+import { Footer } from './components/footer/Footer.tsx';
 import Landing from './components/rated-list/Landing'
 import Nav from "./components/common/nav/Nav";
 
@@ -8,6 +9,7 @@ function App() {
     <>
       <Nav />
       <Landing/>
+      <Footer></Footer>
     </>
   );
 };
