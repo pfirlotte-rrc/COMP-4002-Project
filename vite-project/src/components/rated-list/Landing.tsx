@@ -1,4 +1,5 @@
 import type { JSX } from "react";
+import './Landing.css'
 
 interface Article{
     id: number;
