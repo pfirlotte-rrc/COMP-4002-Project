@@ -1,5 +1,6 @@
 import './Footer.css';
 
+// Defining how the data for groupMembers should be only string values.
 interface NameOfGroupMembers {
   memberName: string,
   githubLink: string
@@ -11,11 +12,12 @@ const groupMembers: NameOfGroupMembers[] = [
   {memberName: "Cj Gonzales", githubLink: "https://github.com/cgonzales2-rrc"}
 ];
 
-export function Footer () {
-    const currentYear = new Date().getFullYear();
+function Footer () {
+  // Uses Date function to grab only the current year.
+  const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="Footer">
+    <footer className="Footer"> 
       <a className="Footer-Project-Link" href="https://github.com/pfirlotte-rrc/COMP-4002-Project" target="_blank">
         <h2>GitHub Project</h2>
       </a>
@@ -26,7 +28,7 @@ export function Footer () {
           {groupMembers.map((member, index) => (
             <li key={index} className="Group-Member">
               <a href={member.githubLink} target="_blank">
-              {member.memberName}
+                {member.memberName}
               </a>
             </li>
           ))}
@@ -35,3 +37,5 @@ export function Footer () {
     </footer>
   );
 };
+
+export default Footer;
