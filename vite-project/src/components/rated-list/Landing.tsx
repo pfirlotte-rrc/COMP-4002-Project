@@ -57,7 +57,7 @@ function ArticleListItem(
         <li className="article-item">
             <a href="#">{title}</a>
             <a href="#">{articleLink}</a>
-            <span className="article-item-rating"> ★ {rating} </span>
+            <span className="article-item-rating"> ⭐ {rating} </span>
         </li>
     );
 }
