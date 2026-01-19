@@ -14,7 +14,7 @@ const navBarPages: Page[] = [
 
 function Nav() {
     return<nav>
-        <div classname="company-name">
+        <div className="company-name">
             <span>
                 <a href="#company">Bit Reviews</a>
             </span>

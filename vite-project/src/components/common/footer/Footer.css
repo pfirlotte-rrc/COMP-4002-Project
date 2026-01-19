@@ -7,6 +7,11 @@
   left: 0;
   bottom: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .Footer a {
@@ -20,8 +25,8 @@
 .Group-Member-Tag {
   color: white;
   position: absolute;
-  bottom: 73px;
-  left: 60px;
+  bottom: 80px;
+  left: 40px;
 }
 
 .Copyright-Text {
@@ -44,7 +49,7 @@
   font-size: 18px;
   font-weight: bold;
   bottom: 0px;
-  left: 20px;
+  left: 0px;
   text-align: left;
 }
 
