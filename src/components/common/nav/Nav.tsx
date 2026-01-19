@@ -20,7 +20,7 @@ function Nav() {
             </span>
         </div>
          <div className="nav-links">
-            <ListDisplay pages={navBarPages}/>
+            <ListPageDisplay pages={navBarPages}/>
         </div>
         <div className="user-login">
             <span>
@@ -36,7 +36,7 @@ function Nav() {
     </nav>;
 }
 
-function ListDisplay({pages}: {pages: Page[]}) {
+function ListPageDisplay({pages}: {pages: Page[]}) {
     const navBarListItem: JSX.Element[] = [];
 
     pages.forEach((page) => {
