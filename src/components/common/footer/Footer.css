@@ -1,0 +1,62 @@
+.Footer {
+  background-color: black;
+  color: black;
+  padding: 1rem 1;
+  margin-top: auto;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.Footer a {
+  text-decoration: none;
+}
+
+.Footer a:hover {
+  text-decoration: underline;
+}
+
+.Group-Member-Tag {
+  color: white;
+  position: absolute;
+  bottom: 80px;
+  left: 40px;
+}
+
+.Copyright-Text {
+  color: white;
+  position: sticky;
+  bottom: 10px;
+  right: 10px;
+}
+
+.Footer-Project-Link {
+  color: cornflowerblue;
+}
+
+.Footer-Project-Link:visited {
+  color: fuchsia;
+}
+
+.Group-Member-List {
+  position: absolute;
+  font-size: 18px;
+  font-weight: bold;
+  bottom: 0px;
+  left: 0px;
+  text-align: left;
+}
+
+.Group-Member a:link {
+  color: cornflowerblue;
+}
+
+.Group-Member a:visited {
+  color: fuchsia;
+}
