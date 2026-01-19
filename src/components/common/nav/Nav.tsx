@@ -20,13 +20,7 @@ function Nav() {
             </span>
         </div>
          <div className="nav-links">
-            {navBarPages.map(item => (
-                <span>
-                    <a key={item.title} href={item.pageLink}>
-                    {item.title}
-                    </a>
-                </span>
-            ))}
+            <ListDisplay pages={navBarPages}/>
         </div>
         <div className="user-login">
             <span>
@@ -40,6 +34,32 @@ function Nav() {
             </form>
         </section>
     </nav>;
+}
+
+function ListDisplay({pages}: {pages: Page[]}) {
+    const navBarListItem: JSX.Element[] = [];
+
+    pages.forEach((page) => {
+        navBarListItem.push(<ListPageHeader
+                page={page.title}
+                key={page.pageLink}
+            />
+        );
+    })
+ 
+    return(
+        <section className="top-terms">
+                {navBarListItem}
+        </section>
+    )
+}
+
+function ListPageHeader({page}: {page: string}) {
+    return (
+        <span>
+            <a href="#">{page}</a>
+        </span>
+    )
 }
 
 export default Nav;
