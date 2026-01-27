@@ -2,7 +2,7 @@ function Popular() {
     return (
         <>
             <section>
-                <ArticleListDisplay articles={testArticles}/>
+                <h1>Popular</h1>
             </section>
         </>
     );

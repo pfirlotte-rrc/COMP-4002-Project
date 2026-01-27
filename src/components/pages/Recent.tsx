@@ -2,7 +2,7 @@ function Recent() {
     return (
         <>
             <section>
-                <ArticleListDisplay articles={testArticles}/>
+                <h1>Recent</h1>
             </section>
         </>
     );

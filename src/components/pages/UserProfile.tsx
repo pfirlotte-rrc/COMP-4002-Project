@@ -2,7 +2,7 @@ function UserProfile() {
     return (
         <>
             <section>
-                <ArticleListDisplay articles={testArticles}/>
+                <h1>User Profile</h1>
             </section>
         </>
     );
