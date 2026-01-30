@@ -1,3 +1,4 @@
+import { useState } from "react"
 
 // Interface that enforces data integrity for any Articles being listed on the site.
 interface Article {
@@ -32,10 +33,15 @@ const listOfArticles: Article[] = [
 ];
 
 function Recent() {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    alert('Thank you! Your article has been submitted for review.');
+    event.currentTarget.reset();
+    };
     return (
         <>
             <section>
-                <h1>Recently Uploaded Articles</h1>
+                <h1 style={{ color: "black"}}>Recently Uploaded Articles</h1>
                 <div className="article-list">
                     {listOfArticles.map((article, index) => (
                         <div key={index} className="article-card" style={{ color: "black"}}>
@@ -54,6 +60,34 @@ function Recent() {
                         </div>
                     ))}
                 </div>
+            </section>
+
+            <section>
+                <h1 style={{ color: "black"}}>Submit Article</h1>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label style={{color: "black"}}><strong>Article Title </strong></label><br />
+                        <input type="text" name="title" required />
+                    </div>
+                    
+                    <div>
+                        <label style={{color: "black"}}><strong>Article URL </strong></label><br />
+                        <input type="url" name="url" required />
+                    </div>
+                    
+                    <div>
+                        <label style={{color: "black"}}><strong>Category </strong></label><br />
+                        <input type="text" name="category" required />
+                    </div>
+                    
+                    <div>
+                        <label style={{color: "black"}}><strong>Description </strong></label><br />
+                        <textarea name="description" required rows={4}></textarea>
+                    </div>
+                    
+                    <button type="submit">Submit Article</button>
+                    <div style={{ height: '100px' }}></div>
+                </form>
             </section>
         </>
     );
