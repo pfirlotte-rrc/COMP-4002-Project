@@ -23,7 +23,7 @@ function App() {
             <Route index element={<Landing/>} />
 
             <Route path="/popular">
-                <Route element={<Popular />} />
+                <Route index element={<Popular />} />
             </Route>
 
             <Route path="/recent"> 
