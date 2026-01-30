@@ -23,15 +23,15 @@ function App() {
             <Route index element={<Landing/>} />
 
             <Route path="/popular">
-                <Route element={<Popular />} />
+                <Route index element={<Popular />} />
             </Route>
 
             <Route path="/recent"> 
-              <Route  element={<Recent/>} />
+              <Route index element={<Recent/>} />
             </Route>
 
             <Route path="/userprofile"> 
-              <Route  element={<UserProfile/>} />
+              <Route index element={<UserProfile/>} />
             </Route>
 
           </Route>
