@@ -1,39 +1,28 @@
-import './SearchBar.css';  
+import React from 'react';
+import type { ChangeEvent } from 'react';
 
-export function SearchBar({
-  searchValue,
-  messages,
-  handleSearchChange,
-  handleSubmit,
-}: {
-  searchValue: string;
-  messages: string[];
-  handleSearchChange: (newValue: string) => void;
-  handleSubmit: () => void;
-}) {
+interface TextInputFormProps {
+  name: string;
+  setName: React.Dispatch<React.SetStateAction<string>>; 
+}
+
+const SearchBar: React.FC<TextInputFormProps> = ({ name, setName }) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value); 
+  };
+
   return (
-    <form className="search-form" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
-
+    <div>
+      <label htmlFor="search">Search by Category: </label>
       <input
         type="text"
-        name="field-term"
-        placeholder="Enter a category"
-        value={searchValue}
-        onChange={(e) => handleSearchChange(e.target.value)}  
-        className="search-input"
+        id="search"
+        value={name}  
+        onChange={handleInputChange}  
+        placeholder="Enter category"
       />
-      
-      
-      {messages?.map((message, index) => (
-        <div className="error" key={index}>
-          {message}
-        </div>
-      ))}
-
-    
-      <button type="submit" className="search-button">
-        Search
-      </button>
-    </form>
+    </div>
   );
-}
+};
+
+export default SearchBar;
