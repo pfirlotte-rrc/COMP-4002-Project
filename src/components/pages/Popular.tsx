@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useArticlesContext } from './ArticlesContext'; // Adjust path as necessary
+import { useArticlesContext } from '../common/hooks/useArticles';
 import SearchBar from '../search-bar/searchBar';
 
 function Popular() {

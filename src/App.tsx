@@ -4,7 +4,7 @@ import "./App.css"
 import { Layout } from "./components/common/layout/Layout";
 import Landing from './components/common/rated-list/Landing'
 
-import { ArticlesProvider } from './components/pages/ArticlesContext';
+import { ArticlesProvider } from './components/common/context/ArticlesContext';
 import Popular from "./components/pages/Popular"
 import Recent from "./components/pages/Recent";
 import UserProfile from "./components/pages/UserProfile";
