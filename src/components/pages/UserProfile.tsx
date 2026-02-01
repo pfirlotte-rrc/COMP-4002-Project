@@ -14,15 +14,13 @@ function UserProfile() {
         userBio: "",
     });
 	
+	const [showEditFrom, setShowEditForm] = useState(true)
+
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		const {name, value} = event.target;
 		setUserProfile(prev => ({...prev, [name]: value}))
 	 };
-
-	const handleSubmit= (event: React.FormEvent<HTMLFormElement>) => {
-    	event.preventDefault();
-	};
 
     return (
         <>
@@ -30,97 +28,89 @@ function UserProfile() {
             <h1>User Profile</h1>
           	<section>
             	<p>
-					<strong>Name:</strong> {userProfile.userName || "Placeholder"}
+					<strong>Name:</strong> {userProfile.userName || "Please Enter your Name"}
 				</p>
 				<p>
-					<strong>Email:</strong> {userProfile.userEmail || "Placeholder"}
+					<strong>Email:</strong> {userProfile.userEmail || "Please Enter your Email"}
 				</p>
 				<p>
-					<strong>Bio:</strong> {userProfile.userBio || "Placeholder"}
+					<strong>Bio:</strong> {userProfile.userBio || "Please Enter your Bio"}
 				</p>
             </section>
 				<section>
 					<h2>Edit Profile</h2>
-					<form onSubmit={handleSubmit}>
-						<FormTextInput
-							label="Name"
-							name="userName"
-							value={userProfile.userName}
-							handleChange={handleInputChange}
-						/>
-						<FormTextInput
-							label="Email"
-							name="userEmail"
-							value={userProfile.userEmail}
-							handleChange={handleInputChange}
-						/>
-						<FormTextAreaInput
-							label="Bio"
-							name="userBio"
-							value={userProfile.userBio}
-							handleChange={handleInputChange}
-						/>
-						<button type="submit">Submit</button>
-					</form>
+					<button onClick={() => setShowEditForm(!showEditFrom)}>
+						{showEditFrom ? "Hide Profile Edit Form" : "Show Profile Edit Form"}
+					</button>
+					{ showEditFrom ? 
+						<UserEditForm
+							profile={userProfile}
+							setProfile={setUserProfile}
+							handleInputChange={handleInputChange}
+						/> : null}
 				</section>
           </main>
       </>
     );
 }
 
-type FormTextInputProps = {
-  label: string;
-  name: string;
-  value: string;
-  placeholder?: string;
-  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-};
+function UserEditForm({
+	profile,
+	setProfile,
+	handleInputChange,
+	}: {
+	profile: Profile;
+	setProfile: React.Dispatch<React.SetStateAction<Profile>>;
+	handleInputChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+	}) {
 
-export function FormTextInput(
-    { label, name, value, placeholder, handleChange}: FormTextInputProps
-) {
-  return (
-	<label>
-		{label}:
-		<input
-			name={name}
-			value={value}
-			size={30}
-			type="text"
-			placeholder= {placeholder ? placeholder : label}
-			onChange={handleChange}
-			/>
-		<br/>
-	</label>
+	const handleSubmit= (event: React.FormEvent<HTMLFormElement>) => {
+    	event.preventDefault();
+	};
+
+	const clearName = () => setProfile(prev => ({...prev, userName: ""}));
+	const clearEmail = () => setProfile(prev => ({...prev, userEmail: ""}));
+	const clearBio = () => setProfile(prev => ({...prev, userBio: ""}));
 	
-  );
-}
-
-type FormTextAreaInputProps = {
-  label: string;
-  name: string;
-  value: string;
-  placeholder?: string;
-  handleChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+	return (
+		<form onSubmit={handleSubmit}>
+			<label>
+				Name:
+				<input
+					name="userName"
+					value={profile.userName}
+					size={30}
+					onChange={handleInputChange}
+				/>
+			</label>
+			<button type="button" onClick={clearName}>Reset Name</button>
+			<br/>
+			<label>
+				Email:
+				<input
+					name="userEmail"
+					value={profile.userEmail}
+					size={30}
+					onChange={handleInputChange}
+				/>
+			</label>
+			<button type="button" onClick={clearEmail}>Reset Email</button>
+			<br/>
+			<label>
+				Bio:
+				<textarea
+					name="userBio"
+					value={profile.userBio}
+					cols={40} 
+					rows={10}
+					onChange={handleInputChange}
+				/>
+			</label>
+			<button type="button" onClick={clearBio}>Reset Bio</button>
+			<br/>
+			<button type="submit">Submit</button>
+		</form>
+	)
 };
-
-export function FormTextAreaInput(
-    { label, name, value, placeholder, handleChange}: FormTextAreaInputProps
-) {
-  return (
-	<label>
-		{label}:
-		<textarea
-			name={name}
-			value={value}
-			cols={40} 
-			rows={10}
-			placeholder= {placeholder ? placeholder : label}
-			onChange={handleChange}
-			/>
-		<br/>
-	</label>
-  );
-}
 
 export default UserProfile;
