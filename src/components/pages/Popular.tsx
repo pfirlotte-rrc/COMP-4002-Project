@@ -3,7 +3,7 @@ import { useArticlesContext } from '../common/hooks/useArticles';
 import SearchBar from '../search-bar/searchBar';
 
 function Popular() {
-  const { articles, calculateAverageRating, updateRating } = useArticlesContext();
+  const { articles, calculateAverageRating, updateRating, incrementViewCount } = useArticlesContext();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredArticles, setFilteredArticles] = useState(articles);
 
@@ -26,21 +26,21 @@ function Popular() {
         {filteredArticles.length === 0 ? (
           <p>No articles found for the search term "{searchTerm}"</p>
         ) : (
-          filteredArticles.map((article, index) => (
+          filteredArticles.map((article) => (
             <div key={article.Name}>
-              <h3>{article.Name} </h3>
+              <h3 onClick={() => incrementViewCount(article.Name)}> {article.Name} </h3>
               <p>{article.Description}</p>
               <p>Category: {article.Category}</p>
               <p>Views: {article.Views}</p>
               <p>Rating: {calculateAverageRating(article.Ratings).toFixed(2)}</p>
               <div>
                 <p>Rate:</p>
-                <button onClick={() => updateRating(index, 5)}>5</button>
-                <button onClick={() => updateRating(index, 4)}>4</button>
-                <button onClick={() => updateRating(index, 3)}>3</button>
-                <button onClick={() => updateRating(index, 2)}>2</button>
-                <button onClick={() => updateRating(index, 1)}>1</button>
-                <button onClick={() => updateRating(index, 0)}>0</button>
+                <button onClick={() => updateRating(article.Name, 5)}>5</button>
+                <button onClick={() => updateRating(article.Name, 4)}>4</button>
+                <button onClick={() => updateRating(article.Name, 3)}>3</button>
+                <button onClick={() => updateRating(article.Name, 2)}>2</button>
+                <button onClick={() => updateRating(article.Name, 1)}>1</button>
+                <button onClick={() => updateRating(article.Name, 0)}>0</button>
               </div>
             </div>
           ))
