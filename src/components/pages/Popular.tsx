@@ -1,111 +1,53 @@
 import { useState, useEffect } from 'react';
-import SearchBar  from '../search-bar/searchBar'; 
-
-interface Article {
-  Name: string;
-  NewsArticle: string;
-  PublishDate: Date;
-  Description: string;
-  Rating: number;
-  Views: number;
-  Category: string;
-}
+import { useArticlesContext } from './ArticlesContext'; // Adjust path as necessary
+import SearchBar from '../search-bar/searchBar';
 
 function Popular() {
-  const allArticles: Article[] = [
-    { 
-        Name: 'JavaScript ES2026', 
-        NewsArticle: 'The new features coming to JavaScript in 2026', 
-        PublishDate: new Date(2026, 1, 10), 
-        Description: 'The latest updates and features to look forward to in JavaScript ES2026.', 
-        Rating: 4.9,
-        Views: 10, 
-        Category: 'JavaScript' 
-    },
-    { 
-        Name: 'The Rise of AI in Coding', 
-        NewsArticle: 'How Artificial Intelligence is changing the way we write code', 
-        PublishDate: new Date(2026, 2, 15), 
-        Description: 'AI-powered tools are revolutionizing software development, making code writing faster and smarter.', 
-        Rating: 4.7,
-        Views: 4, 
-        Category: 'Artificial Intelligence' 
-    },
-    { 
-        Name: 'Next-Gen Web Frameworks', 
-        NewsArticle: 'Exploring the most popular frameworks for web development in 2026', 
-        PublishDate: new Date(2026, 1, 30), 
-        Description: 'Which web frameworks will dominate the industry in the next few years? React, Vue, and more.', 
-        Rating: 4.5,
-        Views: 12, 
-        Category: 'Web Development' 
-    },
-    { 
-        Name: 'Serverless Computing', 
-        NewsArticle: 'How Serverless is changing the cloud computing landscape', 
-        PublishDate: new Date(2026, 1, 12), 
-        Description: 'Understanding serverless architecture and how it’s becoming a game-changer for scalable applications.', 
-        Rating: 5.0,
-        Views: 100, 
-        Category: 'Cloud Computing' 
-    },
-    { 
-        Name: 'Rust: The Future of Systems Programming', 
-        NewsArticle: 'Why Rust is becoming the preferred language for high-performance systems development', 
-        PublishDate: new Date(2026, 2, 1), 
-        Description: 'Rust is taking over C and C++ for systems programming, offering memory safety without sacrificing performance.', 
-        Rating: 4.8,
-        Views: 101, 
-        Category: 'Programming Languages' 
-    },
-    { 
-        Name: 'Quantum Computing: The Next Frontier', 
-        NewsArticle: 'What developers need to know about Quantum Computing in 2026', 
-        PublishDate: new Date(2026, 1, 20), 
-        Description: 'An introduction to quantum computing and how it’s poised to revolutionize the world of software development.', 
-        Rating: 4.3,
-        Views: 50, 
-        Category: 'Quantum Computing' 
-    }
-    ];
+  const { articles, calculateAverageRating, updateRating } = useArticlesContext();
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [filteredArticles, setFilteredArticles] = useState(articles);
 
-    const [searchTerm, setSearchTerm] = useState<string>('');
-    const [filteredArticles, setFilteredArticles] = useState<Article[]>(allArticles);
-
-    useEffect(() => {
-    const filtered = allArticles.filter((article) =>
+  useEffect(() => {
+    const filtered = articles.filter((article) =>
+      article.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       article.Category.toLowerCase().includes(searchTerm.toLowerCase())
-    ).sort((a, b) => b.Views - a.Views); 
-    
-    setFilteredArticles(filtered); 
-  }, [searchTerm]);
+    ).sort((a, b) => b.Views - a.Views);
 
-    return (
-        <main>
-        <h1>Popular Articles</h1>
-        
-        <SearchBar
-        name={searchTerm} 
-        setName={setSearchTerm} 
-        />
+    setFilteredArticles(filtered);
+  }, [searchTerm, articles]);
 
-            <div>
-                {filteredArticles.length === 0 ? (
-                <p>No articles found for the category "{searchTerm}"</p>
-                ) : (
-                filteredArticles.map((article) => (
-                    <div key={article.Name}>
-                        <h3>{article.Name}</h3>
-                        <p>{article.Description}</p>
-                        <p>Category: {article.Category}</p>
-                        <p>Rating: {article.Rating}</p>
-                        <p>Views: {article.Views}</p>
-                    </div>
-                ))
-                )}
+  return (
+    <main>
+      <h1>Popular Articles</h1>
+
+      <SearchBar name={searchTerm} setName={setSearchTerm} />
+
+      <div>
+        {filteredArticles.length === 0 ? (
+          <p>No articles found for the search term "{searchTerm}"</p>
+        ) : (
+          filteredArticles.map((article, index) => (
+            <div key={article.Name}>
+              <h3>{article.Name} </h3>
+              <p>{article.Description}</p>
+              <p>Category: {article.Category}</p>
+              <p>Views: {article.Views}</p>
+              <p>Rating: {calculateAverageRating(article.Ratings).toFixed(2)}</p>
+              <div>
+                <p>Rate:</p>
+                <button onClick={() => updateRating(index, 5)}>5</button>
+                <button onClick={() => updateRating(index, 4)}>4</button>
+                <button onClick={() => updateRating(index, 3)}>3</button>
+                <button onClick={() => updateRating(index, 2)}>2</button>
+                <button onClick={() => updateRating(index, 1)}>1</button>
+                <button onClick={() => updateRating(index, 0)}>0</button>
+              </div>
             </div>
-        </main>
-    );
-    }
+          ))
+        )}
+      </div>
+    </main>
+  );
+}
 
 export default Popular;
