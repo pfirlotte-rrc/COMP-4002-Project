@@ -33,15 +33,15 @@ This project is a news aggregating site that allows for users to rate articles b
 
 ## Kanban Items Completed and Who Completed Them - Sprint Review 2
 
-- Multi Page Navigation: Peter Firlotte
-- Project README update: Peter Firlotte
-- Navigation Interfaces: Peter Firlotte (Completed in previous sprint)
-- Feature page "Recent": Mason Josefchuk
-- Feature page "Recent" Form component: Mason Josefchuk
-- Feature page "Popular": Cj Gonzales
-- Feature page "Popular" Form component: Cj Gonzales
-- Feature page "Popular" Element Add/Remove component: Cj Gonzales
-- Feature page "User Page": Peter Firlotte
-- Feature page "User Page" Form component: Peter Firlotte
-- Feature page "User Page" Element Add/Remove component: Peter Firlotte
-- Create central fake article section for testing: Cj Gonzales
+- Multi Page Navigation -  Peter Firlotte
+- Project README update -  Peter Firlotte & Mason Josefchuk
+- Navigation Interfaces -  Peter Firlotte (Completed in previous sprint)
+- Feature page "Recent" -  Mason Josefchuk
+- Feature page "Recent": Form component - Mason Josefchuk
+- Feature page "Popular" -  Cj Gonzales
+- Feature page "Popular": Form component -  Cj Gonzales
+- Feature page "Popular": Element Add/Remove component -  Cj Gonzales
+- Feature page "User Page" - Peter Firlotte
+- Feature page "User Page": Form component -  Peter Firlotte
+- Feature page "User Page": Element Add/Remove component -  Peter Firlotte
+- Create central fake article section for testing - Cj Gonzales
