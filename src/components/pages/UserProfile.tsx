@@ -1,10 +1,14 @@
 import { useState } from "react";
 
+type Topic = {
+	id: number,
+	title: string,
+}
 type Profile = {
     userName: string,
     userEmail: string,
     userBio: string,
-	favTopics: string[],
+	favTopics: Topic[],
 }
 
 function UserProfile() {
@@ -28,14 +32,14 @@ function UserProfile() {
 
 	const addTopic = () => {
 		setUserProfile(prev => ({
-			...prev, favTopics: [...prev.favTopics, newTopic]
+			...prev, favTopics: [...prev.favTopics, {id: Date.now(), title: newTopic}]
 		}))
 	};
 
-	const deleteTopic = (topicIndex: number) => {
+	const deleteTopic = (id: number) => {
 		setUserProfile(prev => ({
 			...prev,
-			favTopics: prev.favTopics.filter((innerPrev, itemIndex) => itemIndex !== topicIndex)
+			favTopics: prev.favTopics.filter(topic => topic.id !== id)
 		}));
 	 };
 
@@ -57,10 +61,10 @@ function UserProfile() {
 			<section>
 				<h2>Favorite Topics & Categories</h2>
 				<ul>
-					{userProfile.favTopics.map((topic, topicIndex) => (
-						<li key={topicIndex}>
-							{topic}
-							<button onClick={() => deleteTopic(topicIndex)}>Delete</button>
+					{userProfile.favTopics.map((topic) => (
+						<li key={topic.id}>
+							{topic.title}
+							<button onClick={() => deleteTopic(topic.id)}>Delete</button>
 							</li>
 						))}
 				</ul>
