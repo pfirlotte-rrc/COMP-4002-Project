@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import type { JSX } from "react";
 import "./Nav.css";
 
@@ -7,10 +8,10 @@ type Page = {
 };
 
 const navBarPages: Page[] = [
-    {title: "Home", pageLink: "Test.ca"},
-    {title: "Popular", pageLink: "Test.ca"},
-    {title: "My Posts", pageLink: "Test.ca"},
-    {title: "Recent", pageLink: "Test.ca"},
+    {title: "Home", pageLink: "/"},
+    {title: "Popular", pageLink: "/popular"},
+    {title: "Recent", pageLink: "/recent"},
+    {title: "User Profile", pageLink: "/userprofile"},
 ];
 
 function Nav() {
@@ -42,24 +43,25 @@ function ListPageDisplay({pages}: {pages: Page[]}) {
 
     pages.forEach((page) => {
         navBarListItem.push(<ListPageHeader
-                page={page.title}
                 key={page.pageLink}
+                page={page.title}
+                link={page.pageLink}
             />
         );
     })
  
     return(
-        <section className="top-terms">
+        <section className="navHeader">
                 {navBarListItem}
         </section>
     )
 }
 
-function ListPageHeader({page}: {page: string}) {
+function ListPageHeader({page, link}: {page: string; link: string}) {
     return (
-        <span>
-            <a href="#">{page}</a>
-        </span>
+        <NavLink to={link} end>
+            {page}
+        </NavLink>
     )
 }
 
