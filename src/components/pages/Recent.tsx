@@ -4,7 +4,7 @@ import type { Article } from "./ArticleData";
 
 
 function Recent() {
-    const { articles, calculateAverageRating, incrementViewCount } = useArticlesContext();
+    const { articles, calculateAverageRating, incrementViewCount, addArticle } = useArticlesContext();
     const [formData, setFormData] = useState({
         title: "",
         url: "",
@@ -23,20 +23,20 @@ function Recent() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
-        // Create new article object
         const newArticle: Article = {
             Name: formData.title,
             NewsArticle: formData.url,
             PublishDate: new Date(),
             Description: formData.description,
-            Ratings: [], // Empty rating array for new articles
+            Ratings: [],
             Category: formData.category,
-            Views: 0 // Start with 0 views
+            Views: 0
         };
+
+        addArticle(newArticle);
 
         alert('Thank you! Your article has been submitted and added to the list.');
         
-        // Reset form
         setFormData({
             title: "",
             url: "",
