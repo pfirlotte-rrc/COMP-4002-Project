@@ -29,11 +29,11 @@ function App() {
             </Route>
 
             <Route path="/recent"> 
-              <Route  element={<Recent/>} />
+              <Route index element={<Recent/>} />
             </Route>
 
             <Route path="/userprofile"> 
-              <Route  element={<UserProfile/>} />
+              <Route index element={<UserProfile/>} />
             </Route>
 
           </Route>
