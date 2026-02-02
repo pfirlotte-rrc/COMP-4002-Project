@@ -42,6 +42,7 @@ function Popular() {
                 <button onClick={() => updateRating(article.Name, 1)}>1</button>
                 <button onClick={() => updateRating(article.Name, 0)}>0</button>
               </div>
+              <div style={{ height: '100px' }}></div>
             </div>
           ))
         )}

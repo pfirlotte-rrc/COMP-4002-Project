@@ -8,6 +8,7 @@ interface ArticlesContextType {
   incrementViewCount: (name: string) => void;
   calculateAverageRating: (ratings: number[]) => number;
   updateRating: (name: string, rating: number) => void;
+  addArticle: (article: Article) => void;
 }
 
 export const ArticlesContext = createContext<ArticlesContextType | undefined>(undefined);
@@ -40,9 +41,13 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const addArticle = (newArticle: Article) => {
+    setArticles((prevArticles) => [newArticle, ...prevArticles]);
+  };
+
   return (
     <ArticlesContext.Provider
-      value={{ articles, incrementViewCount, calculateAverageRating, updateRating }}
+      value={{ articles, incrementViewCount, calculateAverageRating, updateRating, addArticle}}
     >
       {children}
     </ArticlesContext.Provider>
