@@ -4,6 +4,7 @@ type Profile = {
     userName: string,
     userEmail: string,
     userBio: string,
+	favTopics: string[],
 }
 
 function UserProfile() {
@@ -12,14 +13,30 @@ function UserProfile() {
         userName: "",
         userEmail: "",
         userBio: "",
+		favTopics: [],
     });
 	
-	const [showEditFrom, setShowEditForm] = useState(true)
+	const [showEditForm, setShowEditForm] = useState(true)
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
 		const {name, value} = event.target;
 		setUserProfile(prev => ({...prev, [name]: value}))
+	};
+
+	const [newTopic, setNewTopic] = useState("");
+
+	const addTopic = () => {
+		setUserProfile(prev => ({
+			...prev, favTopics: [...prev.favTopics, newTopic]
+		}))
+	};
+
+	const deleteTopic = (topicIndex: number) => {
+		setUserProfile(prev => ({
+			...prev,
+			favTopics: prev.favTopics.filter((innerPrev, itemIndex) => itemIndex !== topicIndex)
+		}));
 	 };
 
     return (
@@ -37,12 +54,30 @@ function UserProfile() {
 					<strong>Bio:</strong> {userProfile.userBio || "Please Enter your Bio"}
 				</p>
             </section>
+			<section>
+				<h2>Favorite Topics & Categories</h2>
+				<ul>
+					{userProfile.favTopics.map((topic, topicIndex) => (
+						<li key={topicIndex}>
+							{topic}
+							<button onClick={() => deleteTopic(topicIndex)}>Delete</button>
+							</li>
+						))}
+				</ul>
+				<input
+					type="text"
+					value={newTopic}
+					placeholder="Add a Topic/Category"
+					onChange={(event) => setNewTopic(event.target.value)}
+				/>
+				<button onClick={addTopic}>Add Topic</button>
+			</section>
 				<section>
 					<h2>Edit Profile</h2>
-					<button onClick={() => setShowEditForm(!showEditFrom)}>
-						{showEditFrom ? "Hide Profile Edit Form" : "Show Profile Edit Form"}
+					<button onClick={() => setShowEditForm(!showEditForm)}>
+						{showEditForm ? "Hide Profile Edit Form" : "Show Profile Edit Form"}
 					</button>
-					{ showEditFrom ? 
+					{ showEditForm ? 
 						<UserEditForm
 							profile={userProfile}
 							setProfile={setUserProfile}
