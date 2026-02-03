@@ -5,16 +5,20 @@ import type { Article } from '../../pages/ArticleData';
 
 interface ArticlesContextType {
   articles: Article[];
+  hiddenArticles: string[];
   incrementViewCount: (name: string) => void;
   calculateAverageRating: (ratings: number[]) => number;
   updateRating: (name: string, rating: number) => void;
   addArticle: (article: Article) => void;
+  hideArticle: (name: string) => void;
+  showArticle: (name: string) => void;
 }
 
 export const ArticlesContext = createContext<ArticlesContextType | undefined>(undefined);
 
 export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
   const [articles, setArticles] = useState<Article[]>(listOfArticles);
+  const [hiddenArticles, setHiddenArticles] = useState<string[]>([]);
 
   const incrementViewCount = (name: string) => {
     setArticles((prevArticles) =>
@@ -45,9 +49,17 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
     setArticles((prevArticles) => [newArticle, ...prevArticles]);
   };
 
+  const hideArticle = (name: string) => {
+    setHiddenArticles(prev => [...prev, name]);
+  };
+
+  const showArticle = (name: string) => {
+    setHiddenArticles(prev => prev.filter(articleName => articleName !== name));
+  };
+
   return (
     <ArticlesContext.Provider
-      value={{ articles, incrementViewCount, calculateAverageRating, updateRating, addArticle}}
+      value={{ articles, hiddenArticles, incrementViewCount, calculateAverageRating, updateRating, addArticle, hideArticle, showArticle}}
     >
       {children}
     </ArticlesContext.Provider>
