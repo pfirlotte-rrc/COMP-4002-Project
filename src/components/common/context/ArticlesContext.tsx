@@ -1,7 +1,7 @@
 import { createContext, useState} from 'react';
 import type { ReactNode } from 'react';
-import {  listOfArticles } from '../../pages/ArticleData';
-import type { Article } from '../../pages/ArticleData';
+import {  listOfArticles } from '../../../apis/ArticleData';
+import type { Article } from '../../../apis/ArticleData';
 
 interface ArticlesContextType {
   articles: Article[];

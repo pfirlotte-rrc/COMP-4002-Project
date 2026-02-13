@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useArticlesContext } from '../common/hooks/useArticles';
-import type { Article } from "./ArticleData";
+import type { Article } from "../../apis/ArticleData";
 
 
 function Recent() {
