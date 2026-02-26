@@ -3,24 +3,33 @@ import type { ChangeEvent } from 'react';
 
 interface TextInputFormProps {
   name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>; 
+  onChange: (text: string) => void;
+  messages?: string[];
+  hideLabel?: boolean;
 }
 
-const SearchBar: React.FC<TextInputFormProps> = ({ name, setName }) => {
+const SearchBar: React.FC<TextInputFormProps> = ({name, onChange, messages, hideLabel}) => {
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value); 
+    onChange(event.target.value);
   };
 
   return (
     <div>
-      <label htmlFor="search">Search by Category: </label>
+      {!hideLabel && <label htmlFor="search">Search by Category: </label>}
       <input
         type="text"
         id="search"
         value={name}  
         onChange={handleInputChange}  
-        placeholder="Enter category"
+        placeholder="Search..."
       />
+      {messages && messages.length > 0 && (
+      <div style={{color: 'red'}}>
+        {messages.map((message, typeError) => (
+          <div key={typeError}>{message}</div>
+        ))}
+      </div>
+      )}
     </div>
   );
 };

@@ -1,13 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-
-import "./App.css"
 import { Layout } from "./components/common/layout/Layout";
-import Landing from './components/common/rated-list/Landing'
-
 import { ArticlesProvider } from './components/common/context/ArticlesContext';
+import Landing from './components/common/rated-list/Landing'
 import Popular from "./components/pages/Popular"
 import Recent from "./components/pages/Recent";
 import UserProfile from "./components/pages/UserProfile";
+import SearchResults from "./components/pages/SearchResults";
+import "./App.css"
 
 function App() {
   // App is a parent of Nav, Landing, and Footer.
@@ -34,6 +33,10 @@ function App() {
 
             <Route path="/userprofile"> 
               <Route index element={<UserProfile/>} />
+            </Route>
+
+            <Route path="/search"> 
+              <Route index element={<SearchResults/>} />
             </Route>
 
           </Route>

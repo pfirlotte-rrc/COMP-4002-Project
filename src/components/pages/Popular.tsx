@@ -1,26 +1,42 @@
 import { useState, useEffect } from 'react';
 import { useArticlesContext } from '../common/hooks/useArticles';
 import SearchBar from '../search-bar/searchBar';
+import { validateSearch } from '../../services/searchService';
 
 function Popular() {
   const { articles, calculateAverageRating, updateRating, incrementViewCount } = useArticlesContext();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filteredArticles, setFilteredArticles] = useState(articles);
+  const [searchMessages, setSearchMessages] = useState<string[]>([]);
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    const validation = validateSearch(value);
+    if (value.trim().length > 0 && !validation.isValid) {
+      setSearchMessages(validation.errors);
+    } else {
+      setSearchMessages([]);
+    }
+  };
 
   useEffect(() => {
-    const filtered = articles.filter((article) =>
-      article.Name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      article.Category.toLowerCase().includes(searchTerm.toLowerCase())
-    ).sort((a, b) => b.Views - a.Views);
-
-    setFilteredArticles(filtered);
+    let filtered = articles;
+    const trimmedSearchValue = searchTerm.trim();
+    if (trimmedSearchValue.length >= 3)
+      filtered = articles.filter((article) =>
+        article.Name.toLowerCase().includes(trimmedSearchValue.toLowerCase()) ||
+        article.Category.toLowerCase().includes(trimmedSearchValue.toLowerCase())
+      );
+    
+    const sorted = [...filtered].sort((a, b) => b.Views - a.Views);
+    setFilteredArticles(sorted);
   }, [searchTerm, articles]);
 
   return (
     <main>
       <h1>Popular Articles</h1>
 
-      <SearchBar name={searchTerm} setName={setSearchTerm} />
+      <SearchBar name={searchTerm} onChange={handleSearchChange} messages={searchMessages} />
 
       <div>
         {filteredArticles.length === 0 ? (

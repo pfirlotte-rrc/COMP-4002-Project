@@ -1,4 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { validateSearch } from "../../../../services/searchService";
+import { useState } from 'react';
+import SearchBar from "../../../search-bar/searchBar";                 
 import type { JSX } from "react";
 import "./Nav.css";
 
@@ -15,6 +18,30 @@ const navBarPages: Page[] = [
 ];
 
 function Nav() {
+    const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchMessages, setSearchMessages] = useState<string[]>([]);
+
+    const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    const validation = validateSearch(value);
+        if (value.trim().length > 0 && !validation.isValid) {
+            setSearchMessages(validation.errors);
+        } else {
+            setSearchMessages([]);
+        }
+    };
+
+    const searchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const trimmed = searchTerm.trim();
+        if (trimmed.length >= 3) {
+            navigate(`/search?q=${encodeURIComponent(trimmed)}`);
+            setSearchTerm('');
+            setSearchMessages([]);
+        }
+    };
+
     return<nav>
         <div className="company-name">
             <span>
@@ -30,9 +57,9 @@ function Nav() {
             </span>
         </div>
         <section className="search-bar">
-            <form action="#">
-                <input type="text" name="field-term" placeholder="Search..." />
-                <input type="submit" value="Search" />
+            <form onSubmit={searchSubmit}>
+                <SearchBar name={searchTerm} onChange={handleSearchChange} messages={searchMessages} hideLabel={true}/>
+                <button type="submit">Search</button>
             </form>
         </section>
     </nav>;
