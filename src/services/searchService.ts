@@ -1,7 +1,9 @@
-export function validateSearch(searchValue: string): {
+export interface ValidationResult {
     isValid: boolean;
     errors: string[];
-} {
+}
+
+export function validateSearch(searchValue: string): ValidationResult {
     let isValid = true;
     let errors: string[] = [];
 
@@ -10,5 +12,5 @@ export function validateSearch(searchValue: string): {
         errors.push("Search term must be at least 3 characters.");
     }
 
-    return {isValid, errors};
+    return { isValid, errors };
 }
