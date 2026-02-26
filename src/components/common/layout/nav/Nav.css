@@ -40,3 +40,9 @@ nav input[type="submit"] {
   color: black;
   background-color: white;
 }
+
+nav .search-bar form {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
