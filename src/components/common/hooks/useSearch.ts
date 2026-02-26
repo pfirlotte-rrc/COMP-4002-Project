@@ -2,32 +2,35 @@ import { useState } from "react";
 import { validateSearch } from "../../../services/searchService";
 
 interface UseSearchReturn {
-    searchValue: string;
-    setSearchValue: (value: string) => void;
-    errors: string[];
-    isValid: boolean;
-    handleSearchChange: (value: string) => void;
+  searchTerm: string;
+  searchMessages: string[];
+  isValid: boolean;
+  handleSearchChange: (value: string) => void;
 }
 
 export function useSearch(): UseSearchReturn {
-    const [searchValue, setSearchValue] = useState("");
-    const [errors, setErrors] = useState<string[]>([]);
-    const [isValid, setIsValid] = useState(true);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchMessages, setSearchMessages] = useState<string[]>([]);
+  const [isValid, setIsValid] = useState<boolean>(true);
 
-    function handleSearchChange(value: string) {
-        setSearchValue(value);
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
 
-        const validation = validateSearch(value);
+    const validation = validateSearch(value);
 
-        setErrors(validation.errors);
-        setIsValid(validation.isValid);
+    if (value.trim().length > 0 && !validation.isValid) {
+      setSearchMessages(validation.errors);
+    } else {
+      setSearchMessages([]);
     }
 
-    return {
-        searchValue,
-        setSearchValue,
-        errors,
-        isValid,
-        handleSearchChange,
-    };
+    setIsValid(validation.isValid);
+  };
+
+  return {
+    searchTerm,
+    searchMessages,
+    isValid,
+    handleSearchChange,
+  };
 }

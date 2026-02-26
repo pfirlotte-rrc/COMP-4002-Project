@@ -1,33 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useArticlesContext } from '../common/hooks/useArticles';
+import { useSearch } from '../common/hooks/useSearch';
 import SearchBar from '../search-bar/searchBar';
-import { validateSearch } from '../../services/searchService';
 
 function Popular() {
-  const { articles, calculateAverageRating, updateRating, incrementViewCount } = useArticlesContext();
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [filteredArticles, setFilteredArticles] = useState(articles);
-  const [searchMessages, setSearchMessages] = useState<string[]>([]);
+  const { articles, calculateAverageRating, updateRating, incrementViewCount } =
+    useArticlesContext();
 
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
-    const validation = validateSearch(value);
-    if (value.trim().length > 0 && !validation.isValid) {
-      setSearchMessages(validation.errors);
-    } else {
-      setSearchMessages([]);
-    }
-  };
+  const { searchTerm, searchMessages, handleSearchChange } = useSearch();
+
+  const [filteredArticles, setFilteredArticles] = useState(articles);
 
   useEffect(() => {
     let filtered = articles;
     const trimmedSearchValue = searchTerm.trim();
+
     if (trimmedSearchValue.length >= 3)
-      filtered = articles.filter((article) =>
-        article.Name.toLowerCase().includes(trimmedSearchValue.toLowerCase()) ||
-        article.Category.toLowerCase().includes(trimmedSearchValue.toLowerCase())
+      filtered = articles.filter(
+        (article) =>
+          article.Name.toLowerCase().includes(trimmedSearchValue.toLowerCase()) ||
+          article.Category.toLowerCase().includes(trimmedSearchValue.toLowerCase())
       );
-    
+
     const sorted = [...filtered].sort((a, b) => b.Views - a.Views);
     setFilteredArticles(sorted);
   }, [searchTerm, articles]);
@@ -36,7 +30,11 @@ function Popular() {
     <main>
       <h1>Popular Articles</h1>
 
-      <SearchBar name={searchTerm} onChange={handleSearchChange} messages={searchMessages} />
+      <SearchBar
+        name={searchTerm}
+        onChange={handleSearchChange}
+        messages={searchMessages}
+      />
 
       <div>
         {filteredArticles.length === 0 ? (
@@ -44,11 +42,15 @@ function Popular() {
         ) : (
           filteredArticles.map((article) => (
             <div key={article.Name}>
-              <h3 onClick={() => incrementViewCount(article.Name)}> {article.Name} </h3>
+              <h3 onClick={() => incrementViewCount(article.Name)}>
+                {article.Name}
+              </h3>
               <p>{article.Description}</p>
               <p>Category: {article.Category}</p>
               <p>Views: {article.Views}</p>
-              <p>Rating: {calculateAverageRating(article.Ratings).toFixed(2)}</p>
+              <p>
+                Rating: {calculateAverageRating(article.Ratings).toFixed(2)}
+              </p>
               <div>
                 <p>Rate:</p>
                 <button onClick={() => updateRating(article.Name, 5)}>5</button>
