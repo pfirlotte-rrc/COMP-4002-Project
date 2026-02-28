@@ -1,15 +1,15 @@
 import { createContext, useState} from 'react';
 import type { ReactNode } from 'react';
 import {  listOfArticles } from '../../../apis/ArticleData';
-import { rateArticle } from '../../../services/ratingService';
 import type { Article } from '../../../apis/ArticleData';
 
 interface ArticlesContextType {
   articles: Article[];
   hiddenArticles: string[];
   incrementViewCount: (name: string) => void;
-  calculateAverageRating: (ratings: number[]) => number;
-  updateRating: (name: string, rating: number) => void;
+  calculateAverageRating: (ratings: { userId: string; value: number }[]) => number;
+  updateRating: (articleId: string, userId: string, value: number) => void;
+  hasUserRated: (articleId: string, userId: string) => boolean;
   addArticle: (article: Article) => void;
   hideArticle: (name: string) => void;
   showArticle: (name: string) => void;
@@ -31,18 +31,30 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const calculateAverageRating = (ratings: number[]): number => {
-    if (ratings.length === 0) return 0;
-    return ratings.reduce((acc, curr) => acc + curr, 0) / ratings.length;
+  const calculateAverageRating = (
+    ratings: { userId: string; value: number }[]
+  ): number => {
+    if (!ratings.length) return 0;
+    const total = ratings.reduce((acc, r) => acc + r.value, 0);
+    return total / ratings.length;
   };
 
-  const updateRating = (name: string, rating: number) => {
-    setArticles((prevArticles) =>
-      prevArticles.map((article) =>
-        article.Name === name
-          ? { ...article, Ratings: [...article.Ratings, rating] }
-          : article
-      )
+  const hasUserRated = (articleId: string, userId: string): boolean => {
+    const article = articles.find((a) => a.Name === articleId);
+    if (!article) return false;
+
+    return article.Ratings.some((r) => r.userId === userId);
+  };
+
+ const updateRating = (articleId: string, userId: string, value: number) => {
+    setArticles(prev =>
+      prev.map(a => {
+        if (a.Name !== articleId) return a;
+        // Ignore if already rated
+        if (a.Ratings.some(r => r.userId === userId)) return a;
+
+        return { ...a, Ratings: [...a.Ratings, { userId, value }] };
+      })
     );
   };
 
@@ -60,7 +72,7 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ArticlesContext.Provider
-      value={{ articles, hiddenArticles, incrementViewCount, calculateAverageRating, updateRating, addArticle, hideArticle, showArticle}}
+      value={{ articles, hiddenArticles, incrementViewCount, calculateAverageRating, hasUserRated, updateRating, addArticle, hideArticle, showArticle}}
     >
       {children}
     </ArticlesContext.Provider>
