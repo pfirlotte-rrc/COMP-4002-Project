@@ -42,9 +42,9 @@ function Popular() {
         ) : (
           filteredArticles.map((article) => (
             <div key={article.Name}>
-              <h3 onClick={() => incrementViewCount(article.Name)}>
+              <h2 onClick={() => incrementViewCount(article.Name)}>
                 {article.Name}
-              </h3>
+              </h2>
               <p>{article.Description}</p>
               <p>Category: {article.Category}</p>
               <p>Views: {article.Views}</p>
