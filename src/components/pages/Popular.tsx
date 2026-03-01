@@ -51,7 +51,7 @@ function Popular() {
 
                 <div>
                   <p>Rate:</p>
-                  {[5, 4, 3, 2, 1, 0].map(v => (
+                  {[5, 4, 3, 2, 1].map(v => (
                     <button
                       key={v}
                       disabled={rated}
