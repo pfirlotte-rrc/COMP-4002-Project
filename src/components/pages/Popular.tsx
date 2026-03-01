@@ -55,12 +55,11 @@ function Popular() {
                     <button
                       key={v}
                       disabled={rated}
-                      onClick={() => updateRating(article.Name, currentUserId, v)}
-                    >
+                      onClick={() => updateRating(article.Name, currentUserId, v)}>
                       {v}
                     </button>
                   ))}
-                  {rated && <p style={{ color: "gray" }}>You already rated this article</p>}
+                  {rated && <p style={{ color: "red" }}>You already rated this article</p>}
                 </div>
               </div>
             );
