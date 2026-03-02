@@ -4,6 +4,7 @@ import {  listOfArticles } from '../../../apis/ArticleData';
 import type { Article } from '../../../apis/ArticleData';
 import { ArticleRepository } from "../../../repositories/articleRateRepository";
 import { ArticleRatingService } from "../../../services/ratingService";
+import { HiddenArticlesRepository } from "../../../repositories/hiddenArticlesRepository";
 
 interface ArticlesContextType {
   articles: Article[];
@@ -53,11 +54,13 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const hideArticle = (name: string) => {
-    setHiddenArticles(prev => [...prev, name]);
+    HiddenArticlesRepository.addHidden(name);
+    setHiddenArticles(HiddenArticlesRepository.getHidden());
   };
 
   const showArticle = (name: string) => {
-    setHiddenArticles(prev => prev.filter(articleName => articleName !== name));
+    HiddenArticlesRepository.removeHidden(name);
+    setHiddenArticles(HiddenArticlesRepository.getHidden());
   };
 
   return (
