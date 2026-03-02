@@ -3,6 +3,23 @@ import { useArticlesContext } from '../common/hooks/useArticles';
 import { useSearch } from '../common/hooks/useSearch';
 import SearchBar from '../search-bar/searchBar';
 
+/**
+ * Recent Refactor to fit new Hook-Service-Repository Architecture
+ * 
+ * The new component determines whether a user has rated or not and disables
+ * the buttons accordingly:
+ * - Utilizes the ArticleContext as it is the provider for the updated service
+ * functions I made for the rating section.
+ * - Utilizes the rateServices to determine if the current user has rated
+ * and if so disables the buttons.
+ * - Repository updates the new rates and updates the avarage rating of each
+ * individual article.
+ * 
+ * This explains how I changed the rating component to be able to update depending
+ * on their userID and articleID. With this new architecture, I think the page
+ * will be able to take on the different users we have in the future sprints.
+ */
+
 function Popular() {
   const { articles, calculateAverageRating, updateRating, incrementViewCount } =
     useArticlesContext();
