@@ -45,3 +45,22 @@ This project is a news aggregating site that allows for users to rate articles b
 - Feature page "User Page": Form component -  Peter Firlotte
 - Feature page "User Page": Element Add/Remove component -  Peter Firlotte
 - Create central fake article section for testing - Cj Gonzales
+
+## Kanban Items Completed and Who Completed Them - Sprint Review 3
+
+- Hook Definitons - Cj Gonzales
+- Service Definition(s) - Mason Josefchuk
+- Move and Refactor test data - Mason Josefchuk
+- Shared-page-state Refactor - Mason Josfchuk/Peter Firlotte/Cj Gonzales
+- Individual Repository Definition(s) and Integration - Mason Josefchuk
+- Test Data - Mason Josefchuk
+- New/Refactor Component - Mason Josfchuk
+- Architecture Layout Document - Mason Josefchuk
+- Individual Repository Definition(s) and Integration - Peter Firlotte
+- Test Data - Peter Firlotte
+- New/Refactor Component - Peter Firlotte
+- Architecture Layout Document - Peter Firlotte
+- Individual Repository Definition(s) and Integration - Cj Gonzales
+- Test Data - Cj Gonzales
+- New/Refactor Component - Cj Gonzales
+- Architecture Layout Document - Cj Gonzales
