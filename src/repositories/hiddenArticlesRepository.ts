@@ -1,7 +1,7 @@
 import { listOfArticles } from "../apis/ArticleData";
 
 export type HiddenArticle = string;
-let hiddenArticles: HiddenArticle[] = [listOfArticles[0].Name];
+let hiddenArticles: HiddenArticle[] = [];
 
 export const HiddenArticlesRepository = {
   getHidden: (): HiddenArticle[] => [...hiddenArticles],
