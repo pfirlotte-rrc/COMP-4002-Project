@@ -1,5 +1,3 @@
-import { listOfArticles } from "../apis/ArticleData";
-
 export type HiddenArticle = string;
 let hiddenArticles: HiddenArticle[] = [];
 
