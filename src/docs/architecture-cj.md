@@ -4,27 +4,17 @@ Location:
 src/repositories/articleRateRepository.ts
 
 What does this repository do?
-ArticleRepository acts as the data access layer for articles.
+This repository seperates the data from the original list, allowing the service to update the rates of the specific article without messing with the original data.
 
 It:
--Stores the in-memory list of articles.
--Retrieves all articles.
--Retrieves a specific article by ID.
--Updates an article.
+-Retrieves list of articles.
+-Retrieves article by specific ID.
+-Update retrieved article.
 
 Public Methods:
 -getArticles()
 -getArticleById(articleId: string)
 -updateArticle(updatedArticle: Article)
-
-Why was this logic placed here?
-This repository exists to enforce separation of concerns:
-Components should not manage raw data storage and services should not know how data is stored.
-
-By isolating data operations:
-We make it easier to replace in-memory storage with an API.
-We prevent business rules from leaking into UI components.
-We improve testability by mocking repository methods.
 
 It is used by:
 ArticleRatingService
@@ -35,7 +25,7 @@ Location:
 src/services/ratingService.ts
 
 What does this service do?
-ArticleRatingService handles all rating-related business logic.
+This service handles the rating logic, allowing users to rate an article, calculate it and update the information.
 
 It:
 -Allows users to rate an article.
@@ -48,23 +38,16 @@ Public Methods:
 -calculateAverageRating(ratings)
 -hasUserRated(articleId, userId)
 
-Why was this logic placed here?
-This service exists to isolate business rules from both:
-UI logic (React components)
-Data access logic (Repository)
-
-If rating logic changes (e.g., weighted ratings, rating limits), only this service needs modification.
-
 It is used inside:
 ArticlesContext
 
-# ArticlesContext (Custom Hook / Provider)
+# ArticlesContext
 
 Location:
-src/context/ArticlesContext.tsx (or equivalent)
+src/context/ArticlesContext.tsx
 
 What does this hook/provider do?
-ArticlesContext manages UI state and state synchronization.
+This handles all the article context, which is connected to the popular page and recent page, allowing for the pages to be connected and can use the components attached to this if so desired by the person.
 
 It provides:
 -Current list of articles
@@ -74,13 +57,6 @@ It provides:
 -Average rating calculation
 -Article visibility controls
 -Adding new articles
-
-Why was this logic placed here?
-The context is responsible only for:
-Managing React state
-Triggering re-renders
-Connecting UI interactions to services
-Synchronizing repository updates with state
 
 # Personal Involvement
 
