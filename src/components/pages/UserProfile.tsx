@@ -1,15 +1,34 @@
 import { useState } from "react";
+import { useTopics } from "../../hooks/useTopics";
 
-type Topic = {
-	id: number,
-	title: string,
-}
+/**
+ * Recent Refactor to fit Hook -> Service -> Repo architecture
+ * 
+ * This component replaces the previous embedded list of favorite user topics. 
+ * We have created a mock file for topicData containing 10 users with a list of
+ * favorite topics associated with them which this component can pull from.
+ * 
+ * From this component, it calls the useTopics hook which will receive a userId,
+ * in this case we have hardcoded it. With this information it will call the 
+ * topicService to confirm eligibility of the submission or pass an error.
+ * 
+ * Lastly, the service will contact the topicRepo there is no errors, and this 
+ * will manipulate our data based on the desired action. 
+ * 
+ * This will all then be passed back down to the component so that the new 
+ * information can be reflected for the user. 
+ * 
+ */
+
+
 type Profile = {
     userName: string,
     userEmail: string,
     userBio: string,
-	favTopics: Topic[],
 }
+
+//Temporary hardcoded user
+const CURRENT_USER_ID = "u1";
 
 function UserProfile() {
 
@@ -17,10 +36,12 @@ function UserProfile() {
         userName: "",
         userEmail: "",
         userBio: "",
-		favTopics: [],
     });
 	
 	const [showEditForm, setShowEditForm] = useState(true)
+	const [newTopic, setNewTopic] = useState("");
+	
+	const {topics, error, addNewTopic } = useTopics(CURRENT_USER_ID);
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
@@ -28,20 +49,10 @@ function UserProfile() {
 		setUserProfile(prev => ({...prev, [name]: value}))
 	};
 
-	const [newTopic, setNewTopic] = useState("");
-
-	const addTopic = () => {
-		setUserProfile(prev => ({
-			...prev, favTopics: [...prev.favTopics, {id: Date.now(), title: newTopic}]
-		}))
+	const handleAddNewTopic = () => {
+		addNewTopic(newTopic);
+		setNewTopic("");
 	};
-
-	const deleteTopic = (id: number) => {
-		setUserProfile(prev => ({
-			...prev,
-			favTopics: prev.favTopics.filter(topic => topic.id !== id)
-		}));
-	 };
 
     return (
         <>
@@ -60,11 +71,11 @@ function UserProfile() {
             </section>
 			<section>
 				<h2>Favorite Topics & Categories</h2>
+				{error && <p style={{ color: "red"}}>{error}</p>}
 				<ul>
-					{userProfile.favTopics.map((topic) => (
+					{topics.map((topic) => (
 						<li key={topic.id}>
-							{topic.title}
-							<button onClick={() => deleteTopic(topic.id)}>Delete</button>
+							{topic.name}
 							</li>
 						))}
 				</ul>
@@ -74,7 +85,7 @@ function UserProfile() {
 					placeholder="Add a Topic/Category"
 					onChange={(event) => setNewTopic(event.target.value)}
 				/>
-				<button onClick={addTopic}>Add Topic</button>
+				<button onClick={handleAddNewTopic}>Add Topic</button>
 			</section>
 				<section>
 					<h2>Edit Profile</h2>
