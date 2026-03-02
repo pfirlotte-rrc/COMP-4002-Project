@@ -1,5 +1,5 @@
 import type { Topic } from "../apis/topicData";
-import { topicRepository } from "../apis/topicRepo";
+import { topicRepository } from "../repositories/topicRepo";
 
 export const topicService = {
     getTopics(userId: string): Topic[] {

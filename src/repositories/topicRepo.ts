@@ -1,5 +1,5 @@
-import { mockUsers } from "./topicData";
-import type { Topic, UserProfileTags } from "./topicData";
+import { mockUsers } from "../apis/topicData";
+import type { Topic, UserProfileTags } from "../apis/topicData";
 
 let usersInfo: UserProfileTags[] = mockUsers.map(e => ({
   ...e, favoriteTopics: [...e.favoriteTopics],}));
