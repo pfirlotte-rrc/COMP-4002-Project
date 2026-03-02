@@ -2,6 +2,23 @@ import { useState } from "react"
 import { useArticlesContext } from '../common/hooks/useArticles';
 import type { Article } from "../../apis/ArticleData";
 
+/**
+ * Recent Refactor to fit new Hook-Service-Repository Architecture
+ * 
+ * This component demonstrates the use of the hook-service-repository 
+ * full layered architecture by:
+ * - Utilizing the useArticlesContext hook to access global state and 
+ *   actions.
+ * - The hide and showArticle functions receives the article name, then
+ *   is passed to the HiddenArticlesService which handles business logic.
+ * - The service in turn calls the HiddenArticlesRepositoryto handle the 
+ *   data which is stored in an Array of article objects that was 
+ *   imported.
+ * 
+ * This helps to explain how the refactoring of the hide/show functions
+ * uses the new architecture and helps to create a solid foundation for
+ * the website to operate.
+ */
 
 function Recent() {
     const { articles, hiddenArticles, calculateAverageRating, incrementViewCount, addArticle, hideArticle, showArticle } = useArticlesContext();
