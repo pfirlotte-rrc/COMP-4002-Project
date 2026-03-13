@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useArticlesContext } from '../common/hooks/useArticles';
+import { useArticlesContext } from '../../hooks/useArticles';
 
 function SearchResults() {
   const { articles, calculateAverageRating, incrementViewCount } = useArticlesContext();

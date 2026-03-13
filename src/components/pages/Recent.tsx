@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useArticlesContext } from '../common/hooks/useArticles';
+import { useArticlesContext } from '../../hooks/useArticles';
 import type { Article } from "../../apis/ArticleData";
 
 /**
