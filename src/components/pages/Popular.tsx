@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useArticlesContext } from '../common/hooks/useArticles';
-import { useSearch } from '../common/hooks/useSearch';
+import { useArticlesContext } from '../../hooks/useArticles';
+import { useSearch } from '../../hooks/useSearch';
 import SearchBar from '../search-bar/searchBar';
 
 /**
