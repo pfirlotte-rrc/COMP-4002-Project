@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { validateSearch } from "../../../services/searchService";
+import { validateSearch } from "../services/searchService";
 
 interface UseSearchReturn {
   searchTerm: string;
