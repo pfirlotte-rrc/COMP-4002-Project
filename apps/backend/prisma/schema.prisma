@@ -13,3 +13,44 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Article{
+  id          Int @id @default(autoincrement())
+  name        String 
+  newsArticle String
+  publishDate DateTime
+  description String
+  views       Int 
+  ratings     Ratings[] 
+  category    articleCategories[] 
+}
+
+model Ratings {
+  ratingId  Int @id
+  articleId Int
+  userId    Int
+  value     Int
+  user      Users @relation(fields: [userId], references: [userId])
+  article   Article @relation(fields: [articleId], references: [id])
+} 
+
+model Users {  
+  userId    Int @id @default(autoincrement()) 
+  userName  String @unique 
+  ratings   Ratings[] 
+}
+
+model articleCategories {  
+  articleId  Int 
+  article    Article @relation(fields: [articleId], references: [id]) 
+  categoryId Int 
+  category   Category @relation(fields: [categoryId], references: [categoryId]) 
+
+  @@id([articleId, categoryId])
+}
+
+model Category {  
+  categoryId    Int @id @default(autoincrement()) 
+  categoryName  String @unique 
+  articles      articleCategories[] 
+}
