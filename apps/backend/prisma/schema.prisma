@@ -22,7 +22,9 @@ model Article{
   description String
   views       Int 
   ratings     Ratings[] 
-  category    articleCategories[] 
+  category    Category[] 
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
 
 model Ratings {
@@ -32,25 +34,22 @@ model Ratings {
   value     Int
   user      Users @relation(fields: [userId], references: [userId])
   article   Article @relation(fields: [articleId], references: [id])
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 } 
 
 model Users {  
   userId    Int @id @default(autoincrement()) 
   userName  String @unique 
-  ratings   Ratings[] 
-}
-
-model articleCategories {  
-  articleId  Int 
-  article    Article @relation(fields: [articleId], references: [id]) 
-  categoryId Int 
-  category   Category @relation(fields: [categoryId], references: [categoryId]) 
-
-  @@id([articleId, categoryId])
+  ratings   Ratings[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt 
 }
 
 model Category {  
   categoryId    Int @id @default(autoincrement()) 
   categoryName  String @unique 
-  articles      articleCategories[] 
+  articles      Article[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
