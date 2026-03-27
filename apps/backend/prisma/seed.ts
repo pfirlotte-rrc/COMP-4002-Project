@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 import { articleSeedData } from "./seedData";
 
@@ -15,7 +15,10 @@ const prisma = new PrismaClient({ adapter });
 // see https://www.prisma.io/docs/orm/prisma-migrate/workflows/seeding
 async function main() {
     // clear table
+    await prisma.rating.deleteMany();
     await prisma.article.deleteMany();
+    await prisma.user.deleteMany();
+    await prisma.category.deleteMany();
 
     // insert terms to db
     const assignArticles = await prisma.article.createManyAndReturn(
