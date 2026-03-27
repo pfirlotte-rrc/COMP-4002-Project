@@ -6,16 +6,14 @@ export const articleSeedData = [
     newsArticle: "https://pythonguides.com/typescript-date/", 
     publishDate: new Date(2026, 0, 27), 
     description: "This article is a comprehensive tutorial explaining how to create, format, and manipulate dates using TypeScript's native Date object. It covers practical topics like time zones, custom formatting, and performing common operations, and also suggests libraries like date-fns for complex tasks.", 
-    views: 37,
+    views: 37
     ratings: {
       create: [
         {
           rating: {
             value: 2,
             user: {
-              create: {
-                name: "User1",
-              },
+              create: {name: "User1"},
             },
           },
         },
@@ -23,9 +21,7 @@ export const articleSeedData = [
           rating: {
             value: 4,
             user: {
-              create: {
-                name: "User2",
-              },
+              create: {name: "User2"},
             },
           },
         },
@@ -33,9 +29,7 @@ export const articleSeedData = [
           rating: {
             value: 4,
             user: {
-              create: {
-                name: "User3",
-              },
+              create: {name: "User3"},
             },
           },
         },
@@ -60,5 +54,5 @@ export const articleSeedData = [
             },
         ],
     },
-  },
+  }
 ]
