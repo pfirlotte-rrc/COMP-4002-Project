@@ -16,7 +16,7 @@ async function main() {
     await prisma.term.deleteMany();
 
     // insert terms to db
-    const assignArticles = await prisma.post.create({
+    const assignArticles = await prisma.post.createManyAndReturn({
     data: {
         name: "TypeScript Date Tutorials", 
         newsArticle: "https://pythonguides.com/typescript-date/", 
