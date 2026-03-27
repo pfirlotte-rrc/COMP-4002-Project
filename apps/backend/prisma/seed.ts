@@ -25,7 +25,7 @@ async function main() {
         }
     );
 
-    console.log(`CREATED TERMS: ${assignArticles}`);
+    console.log(`CREATED ARTICLES: ${assignArticles}`);
 };
 
 main()
