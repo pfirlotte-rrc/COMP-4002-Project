@@ -14,7 +14,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Article{
+model Article {
   id          Int @id @default(autoincrement())
   name        String 
   newsArticle String

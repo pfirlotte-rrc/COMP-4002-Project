@@ -1,4 +1,4 @@
-import { article } from "@prisma/client"
+// import { Article } from "@prisma/client"
 
 export const articleSeedData = [
   {
