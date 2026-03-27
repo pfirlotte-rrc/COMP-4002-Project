@@ -5,8 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -32,13 +31,13 @@ model Rating {
   articleId     Int
   userId        Int
   value         Int
-  user          Users @relation(fields: [userId], references: [userId])
+  user          User @relation(fields: [userId], references: [userId])
   article       Article @relation(fields: [articleId], references: [id])
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 } 
 
-model Users {  
+model User {  
   userId        Int @id @default(autoincrement())
   userName      String @unique
   ratings       Rating[]
