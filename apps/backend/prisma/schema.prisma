@@ -28,22 +28,22 @@ model Article {
 }
 
 model Rating {
-  ratingId   Int @id @default(autoincrement())
-  articleId  Int
-  userId     Int
-  value      Int
-  user       Users @relation(fields: [userId], references: [userId])
-  article    Article @relation(fields: [articleId], references: [id])
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  ratingId      Int @id @default(autoincrement())
+  articleId     Int
+  userId        Int
+  value         Int
+  user          Users @relation(fields: [userId], references: [userId])
+  article       Article @relation(fields: [articleId], references: [id])
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 } 
 
 model Users {  
-  userId     Int @id @default(autoincrement())
-  userName   String @unique
-  ratings    Rating[]
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  userId        Int @id @default(autoincrement())
+  userName      String @unique
+  ratings       Rating[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Category {  
