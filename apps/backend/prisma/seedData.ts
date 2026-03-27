@@ -9,35 +9,21 @@ export const articleSeedData = [
     views: 37,
     ratings: {
       create: [
-        {
-          rating: {
-            value: 2,
-            user: {
+        { rating: 
+          { value: 2, user: {
               create: {name: "User1"},
             },
           },
         },
-        {
-          rating: {
-            value: 4,
-            user: {
+        { rating: 
+          { value: 4, user: {
               create: {name: "User2"},
             },
           },
         },
-        {
-          rating: {
-            value: 4,
-            user: {
+        { rating: 
+          { value: 4, user: {
               create: {name: "User3"},
-            },
-          },
-        },
-        {
-          rating: {
-            value: 5,
-            user: {
-              create: {name: "User5"},
             },
           },
         },
@@ -47,8 +33,11 @@ export const articleSeedData = [
         create: [
             {
             category: {
-                create: [{ name: "Programming" }, { name: "TypeScript" }],
-                },
+                create: [
+                  { name: "Programming" },
+                  { name: "TypeScript" }
+                ],
+              },
             },
         ],
     },
