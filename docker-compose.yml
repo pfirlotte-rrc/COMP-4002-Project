@@ -3,12 +3,12 @@ version: "3.9"
 services:
   postgres:
     image: postgres:16
-    container_name: full-stack-demo
+    container_name: bit_Review_DB
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: complexicon-demo_db
+      POSTGRES_DB: Fullstack-Project
     ports:
       - "5433:5432"
     volumes:
