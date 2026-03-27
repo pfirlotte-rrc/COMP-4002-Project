@@ -30,16 +30,16 @@ export const articleSeedData = [
       ],
     },
     categories: {
-        create: [
-            {
-            category: {
-                create: [
-                  { name: "Programming" },
-                  { name: "TypeScript" }
-                ],
-              },
-            },
-        ],
+      create: [
+        {
+          category: {
+            create: [
+              { name: "Programming" },
+              { name: "TypeScript" }
+            ],
+          },
+        },
+      ],
     },
   }
 ]
