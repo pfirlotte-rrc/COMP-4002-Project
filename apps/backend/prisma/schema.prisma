@@ -22,7 +22,7 @@ model Article {
   description String
   views       Int 
   ratings     Ratings[] 
-  category    Category[] 
+  categories    Category[] 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
