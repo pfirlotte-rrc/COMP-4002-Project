@@ -21,12 +21,11 @@ async function main() {
     await prisma.category.deleteMany();
 
     // insert terms to db
-    const assignArticles = await prisma.article.createManyAndReturn(
-        {
-            data: articleSeedData,
-            skipDuplicates: true
-        }
-    );
+    const assignArticles = [];
+    for (const article of articleSeedData) {
+        const created = await prisma.article.create({ data: article });
+        assignArticles.push(created);
+    }
 
     console.log(`CREATED ARTICLES: ${assignArticles}`);
 };
