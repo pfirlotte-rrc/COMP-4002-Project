@@ -24,6 +24,7 @@
     "tsx": "^4.21.0"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "~6.19.0",
     "@prisma/client": "~6.19.0",
     "@types/cors": "^2.8.17",
     "@types/morgan": "^1.9.9",
