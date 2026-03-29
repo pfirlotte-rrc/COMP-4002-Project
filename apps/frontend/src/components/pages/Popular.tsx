@@ -1,88 +1,114 @@
-import { useState, useEffect } from 'react';
-import { useArticlesContext } from '../../hooks/useArticles';
-import { useSearch } from '../../hooks/useSearch';
-import SearchBar from '../search-bar/searchBar';
-
-/**
- * Recent Refactor to fit new Hook-Service-Repository Architecture
- * 
- * The new component determines whether a user has rated or not and disables
- * the buttons accordingly:
- * - Utilizes the ArticleContext as it is the provider for the updated service
- * functions I made for the rating section.
- * - Utilizes the rateServices to determine if the current user has rated
- * and if so disables the buttons.
- * - Repository updates the new rates and updates the avarage rating of each
- * individual article.
- * 
- * This explains how I changed the rating component to be able to update depending
- * on their userID and articleID. With this new architecture, I think the page
- * will be able to take on the different users we have in the future sprints.
- */
+import { useState, useEffect } from "react";
+import { useArticlesContext } from "../../hooks/useArticles";
+import { useSearch } from "../../hooks/useSearch";
+import SearchBar from "../search-bar/searchBar";
 
 function Popular() {
-  const { articles, calculateAverageRating, updateRating, incrementViewCount, hasUserRated } =
-    useArticlesContext();
+  const {
+    articles,
+    calculateAverageRating,
+    updateRating,
+    incrementViewCount,
+    loading,
+  } = useArticlesContext();
 
-  const currentUserId = "user-123";
+  const currentUserId = 1;
 
   const { searchTerm, searchMessages, handleSearchChange } = useSearch();
 
-  const [filteredArticles, setFilteredArticles] = useState(articles);
+  const [filteredArticles, setFilteredArticles] = useState<any[]>([]);
 
   useEffect(() => {
     let filtered = articles;
-    const trimmedSearchValue = searchTerm.trim();
+    const trimmed = searchTerm.trim().toLowerCase();
 
-    if (trimmedSearchValue.length >= 3)
+    if (trimmed.length >= 3) {
       filtered = articles.filter(
-        (article) =>
-          article.Name.toLowerCase().includes(trimmedSearchValue.toLowerCase()) ||
-          article.Category.toLowerCase().includes(trimmedSearchValue.toLowerCase())
+        (article: any) =>
+          article.name.toLowerCase().includes(trimmed) ||
+          article.categories?.some((c: any) =>
+            c.categoryName.toLowerCase().includes(trimmed)
+          )
       );
+    }
 
-    const sorted = [...filtered].sort((a, b) => b.Views - a.Views);
+    const sorted = [...filtered].sort(
+      (a: any, b: any) => (b.views || 0) - (a.views || 0)
+    );
+
     setFilteredArticles(sorted);
   }, [searchTerm, articles]);
 
- return (
+  const hasUserRated = (article: any) =>
+    article.ratings?.some((r: any) => r.userId === currentUserId);
+
+  if (loading) return <p>Loading articles...</p>;
+
+  return (
     <main>
       <h1>Popular Articles</h1>
 
-      <SearchBar name={searchTerm} onChange={handleSearchChange} messages={searchMessages} />
+      <SearchBar
+        name={searchTerm}
+        onChange={handleSearchChange}
+        messages={searchMessages}
+      />
 
       <div>
         {filteredArticles.length === 0 ? (
           <p>No articles found for "{searchTerm}"</p>
         ) : (
-          filteredArticles.map(article => {
-            const rated = hasUserRated(article.Name, currentUserId);
+          filteredArticles.map((article: any) => {
+            const rated = hasUserRated(article);
 
             return (
-              <div key={article.Name} style={{ marginBottom: "40px" }}>
-                <h2 onClick={() => incrementViewCount(article.Name)}>{article.Name}</h2>
-                <p>{article.Description}</p>
-                <p>Category: {article.Category}</p>
-                <p>Views: {article.Views}</p>
-                <p>Rating: {calculateAverageRating(article.Ratings).toFixed(2)}</p>
+              <div key={article.id} style={{ marginBottom: "40px" }}>
+                <h2 onClick={() => incrementViewCount(article.id)}>
+                  {article.name}
+                </h2>
+
+                <p>{article.description}</p>
+
+                <p>
+                  Categories:{" "}
+                  {article.categories
+                    ?.map((c: any) => c.categoryName)
+                    .join(", ")}
+                </p>
+
+                <p>Views: {article.views}</p>
+
+                <p>
+                  Rating:{" "}
+                  {calculateAverageRating(article.ratings || []).toFixed(2)}
+                </p>
 
                 <div>
                   <p>Rate:</p>
-                  {[5, 4, 3, 2, 1].map(v => (
+                  {[5, 4, 3, 2, 1].map((v) => (
                     <button
                       key={v}
                       disabled={rated}
-                      onClick={() => updateRating(article.Name, currentUserId, v)}>
+                      onClick={() =>
+                        updateRating(article.id, currentUserId, v)
+                      }
+                    >
                       {v}
                     </button>
                   ))}
-                  {rated && <p style={{ color: "red" }}>You already rated this article</p>}
+
+                  {rated && (
+                    <p style={{ color: "red" }}>
+                      You already rated this article
+                    </p>
+                  )}
                 </div>
               </div>
             );
           })
         )}
       </div>
+      <div style={{ height: '100px' }}></div>
     </main>
   );
 }

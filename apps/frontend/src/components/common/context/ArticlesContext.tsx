@@ -1,18 +1,24 @@
-import { createContext, useState} from 'react';
-import type { ReactNode } from 'react';
-import {  listOfArticles } from '../../../apis/ArticleData';
-import type { Article } from '../../../apis/ArticleData';
-import { ArticleRepository } from "../../../repositories/articleRateRepository";
-import { ArticleRatingService } from "../../../services/ratingService";
+import { createContext, useState, useEffect } from "react";
+import type { ReactNode } from "react";
+import type { Article } from "../../../apis/prismaArticle";
 import { HiddenArticlesService } from "../../../services/hiddenArticlesService";
+
+interface Rating {
+  userId: number;
+  value: number;
+}
 
 interface ArticlesContextType {
   articles: Article[];
   hiddenArticles: string[];
-  incrementViewCount: (name: string) => void;
-  calculateAverageRating: (ratings: { userId: string; value: number }[]) => number;
-  updateRating: (articleId: string, userId: string, value: number) => void;
-  hasUserRated: (articleId: string, userId: string) => boolean;
+  loading: boolean;
+
+  incrementViewCount: (articleId: number) => void;
+  updateRating: (articleId: number, userId: number, value: number) => void;
+
+  calculateAverageRating: (ratings: Rating[]) => number;
+  hasUserRated: (articleId: number, userId: number) => boolean;
+
   addArticle: (article: Article) => void;
   hideArticle: (name: string) => void;
   showArticle: (name: string) => void;
@@ -21,44 +27,97 @@ interface ArticlesContextType {
 export const ArticlesContext = createContext<ArticlesContextType | undefined>(undefined);
 
 export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
-  const [articles, setArticles] = useState<Article[]>(listOfArticles);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [hiddenArticles, setHiddenArticles] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const incrementViewCount = (name: string) => {
-    setArticles((prevArticles) =>
-      prevArticles.map((article) =>
-        article.Name === name
-          ? { ...article, Views: article.Views + 1 }
-          : article
-      )
-    );
-  };
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/articles");
+        const data = await res.json();
+        setArticles(data);
+      } catch (error) {
+        console.error("Failed to fetch articles:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const updateRating = (articleId: string, userId: string, value: number) => {
+    fetchArticles();
+  }, []);
+
+  const incrementViewCount = async (articleId: number) => {
     try {
-      ArticleRatingService.rateArticle(articleId, userId, value);
-      setArticles(ArticleRepository.getArticles());
+      await fetch(`http://localhost:3000/articles/${articleId}/view`, {
+        method: "POST",
+      });
+
+      setArticles(prev =>
+        prev.map(a =>
+          a.id === articleId
+            ? { ...a, views: (a.views || 0) + 1 }
+            : a
+        )
+      );
     } catch (error) {
-      alert((error as Error).message);
+      console.error(error);
     }
   };
 
-  const hasUserRated = (articleId: string, userId: string) =>
-    ArticleRatingService.hasUserRated(articleId, userId);
+  const updateRating = async (
+    articleId: number,
+    userId: number,
+    value: number
+  ) => {
+    try {
+      await fetch(`http://localhost:3000/articles/${articleId}/rate`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId, rating: value }),
+      });
 
-  const calculateAverageRating = (ratings: { userId: string; value: number }[]) =>
-    ArticleRatingService.calculateAverageRating(ratings);
+      setArticles(prev =>
+        prev.map(a =>
+          a.id === articleId
+            ? {
+                ...a,
+                ratings: [...(a.ratings || []), { userId, value }],
+              }
+            : a
+        )
+      );
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
+
+  const hasUserRated = (articleId: number, userId: number) => {
+    const article = articles.find(a => a.id === articleId);
+    return article
+      ? article.ratings?.some(r => r.userId === userId)
+      : false;
+  };
+
+  const calculateAverageRating = (ratings: Rating[]) => {
+    if (!ratings || ratings.length === 0) return 0;
+    return ratings.reduce((sum, r) => sum + r.value, 0) / ratings.length;
+  };
+
 
   const addArticle = (newArticle: Article) => {
-    setArticles((prevArticles) => [newArticle, ...prevArticles]);
+    setArticles(prev => [newArticle, ...prev]);
   };
-  
+
+
   const hideArticle = (name: string) => {
     try {
       HiddenArticlesService.hideArticle(name);
       setHiddenArticles(HiddenArticlesService.getHidden());
-    } catch (error) {
-      alert((error as Error).message);
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 
@@ -66,14 +125,25 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
     try {
       HiddenArticlesService.showArticle(name);
       setHiddenArticles(HiddenArticlesService.getHidden());
-    } catch (error) {
-      alert((error as Error).message);
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 
   return (
     <ArticlesContext.Provider
-      value={{ articles, hiddenArticles, incrementViewCount, calculateAverageRating, hasUserRated, updateRating, addArticle, hideArticle, showArticle}}
+      value={{
+        articles,
+        hiddenArticles,
+        loading,
+        incrementViewCount,
+        updateRating,
+        calculateAverageRating,
+        hasUserRated,
+        addArticle,
+        hideArticle,
+        showArticle,
+      }}
     >
       {children}
     </ArticlesContext.Provider>
