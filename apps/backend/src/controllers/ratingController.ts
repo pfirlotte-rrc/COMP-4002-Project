@@ -5,9 +5,13 @@ function parseSingleParam(param: string | string[]): string {
   return Array.isArray(param) ? param[0] : param;
 }
 
-export const getArticles = async (res: Response) => {
-  const articles = await articleService.getArticles();
-  res.json(articles);
+export const getArticles = async (_req: Request, res: Response) => {
+  try {
+    const articles = await articleService.getArticles();
+    res.json(articles);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
 };
 
 export const rateArticle = async (req: Request, res: Response) => {
@@ -24,7 +28,11 @@ export const rateArticle = async (req: Request, res: Response) => {
 };
 
 export const incrementViews = async (req: Request, res: Response) => {
-  const articleId = parseInt(parseSingleParam(req.params.id), 10);
-  const article = await articleService.incrementViewCount(articleId);
-  res.json(article);
+  try {
+    const articleId = parseInt(parseSingleParam(req.params.id), 10);
+    const article = await articleService.incrementViewCount(articleId);
+    res.json(article);
+  } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
 };
