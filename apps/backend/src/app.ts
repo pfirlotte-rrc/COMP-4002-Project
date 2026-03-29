@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import corsOptions from "../config/cors";
 import setupSwagger from "../config/swagger";
 // import termRoutes from "./api/v1/routes/termRoutes";
-import errorHandler from "./api/v1/middleware/errorHandler";
+// import errorHandler from "./api/v1/middleware/errorHandler";
 
 // initialize express application
 const app: Express = express();
@@ -37,6 +37,6 @@ app.get("/",  (_req, res) => {
 
 //errorhandler catches errors as last element in middleware chain
 // occurs when "next" is invoked
-app.use(errorHandler); 
+// app.use(errorHandler); 
 
 export default app;
