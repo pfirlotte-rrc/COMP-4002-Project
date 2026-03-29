@@ -9,6 +9,20 @@ nav {
   width: 99%;
 }
 
+nav .nav-links a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav .nav-links a.active {
+  background-color: #555;
+  color: white;
+}
+
 nav span a {
   float: left;
   display: block;
