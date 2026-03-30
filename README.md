@@ -67,7 +67,7 @@ This project is a news aggregating site that allows for users to rate articles b
   
 ## Kanban Items Completed and Who Completed Them - Sprint Review 4
 
-- Development SQL Database - Peter Firlotte
+- Development SQL Database - Mason Josefchuk
 - Back-end App Initialization - Mason Josefchuk, Peter Firlotte, CJ Gonzales
 - Update Vercel Deployment - Peter Firlotte
 - Prisma and Client Initialization - Peter Firlotte
