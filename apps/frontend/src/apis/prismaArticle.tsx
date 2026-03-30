@@ -6,6 +6,8 @@ type Rating = {
 export type Article = {
   id: number;
   name: string;
+  newsArticle: string;
+  publishDate: Date;
   description: string;
   views: number;
   ratings: Rating[];
