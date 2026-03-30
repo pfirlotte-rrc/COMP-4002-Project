@@ -2,6 +2,7 @@ import express, {Express} from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import ratingRoutes from "./api/v1/routes/ratingRoutes";
+import hiddenArticleRoutes from "./api/v1/routes/hiddenArticleRoutes"
 // import termRoutes from "./api/v1/routes/termRoutes";
 // import errorHandler from "./api/v1/middleware/errorHandler";
 
@@ -22,6 +23,9 @@ app.get("/",  (_req, res) => {
 });
 
 app.use("/articles", ratingRoutes);
+
+//Where the client request enters the server to view/hide an article.
+app.use("/api/v1", hiddenArticleRoutes);
 // use termRoutes
 // app.use("/api/v1", termRoutes);
 
