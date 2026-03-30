@@ -5,30 +5,22 @@ import { hideArticleSchema, showArticleSchema } from "../validations/hiddenArtic
 
 const router = express.Router();
 
-// GET /api/hidden - Get all hidden articles.
-router.get(
-    "/hidden", 
-    HiddenArticleController.getHiddenArticles
-);
+// GET / - Get all hidden articles.
+router.get("/", HiddenArticleController.getHiddenArticles);
 
-// POST /api/hidden/hide - Hide an article.
-router.post(
-  "/hidden/hide",
+// POST /hide - Hide an article.
+router.post("/hide",
   validateRequest(hideArticleSchema),
   HiddenArticleController.hideArticle
 );
 
-// POST /api/hidden/show - Show an article (remove from hidden).
-router.post(
-  "/hidden/show",
+// POST /show - Show an article (remove from hidden).
+router.post("/show",
   validateRequest(showArticleSchema),
   HiddenArticleController.showArticle
 );
 
-// GET /api/hidden/check/:articleName - Check if article is hidden.
-router.get(
-    "/hidden/check/:articleName", 
-    HiddenArticleController.checkHiddenStatus
-);
+// GET /check/:articleName - Check if article is hidden.
+router.get("/check/:articleName", HiddenArticleController.checkHiddenStatus);
 
 export default router;
