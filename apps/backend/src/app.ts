@@ -22,7 +22,7 @@ app.get("/",  (_req, res) => {
     res.send("Got response from backend!");
 });
 
-app.use("/articles", ratingRoutes);
+app.use("api/v1/articles", ratingRoutes);
 
 //Where the client request enters the server to view/hide an article.
 app.use("/api/v1", hiddenArticleRoutes);
