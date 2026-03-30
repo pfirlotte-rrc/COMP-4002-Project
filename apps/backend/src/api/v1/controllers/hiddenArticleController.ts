@@ -22,7 +22,7 @@ export const HiddenArticleController = {
   },
 
   /**
-   * Show an article (remove from hidden)
+   * Show an article (remove from hidden).
    */
   showArticle: async (req: Request, res: Response) => {
     try {
@@ -41,7 +41,7 @@ export const HiddenArticleController = {
   },
 
   /**
-   * Get all hidden articles
+   * Get all hidden articles.
    */
   getHiddenArticles: async (res: Response) => {
     try {
@@ -57,7 +57,7 @@ export const HiddenArticleController = {
   },
 
   /**
-   * Check if an article is hidden
+   * Checks to see if the article is hidden.
    */
   checkHiddenStatus: async (req: Request, res: Response) => {
     try {
