@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useArticlesContext } from '../../hooks/useArticles';
-import type { Article } from "../../apis/ArticleData";
+import type { Article } from "../../apis/prismaArticle";
 
 /**
  * Recent Refactor to fit new Hook-Service-Repository Architecture
@@ -23,8 +23,8 @@ import type { Article } from "../../apis/ArticleData";
 function Recent() {
     const { articles, hiddenArticles, calculateAverageRating, incrementViewCount, addArticle, hideArticle, showArticle } = useArticlesContext();
     const [showHidden, setShowHidden] = useState(false);
-    const visibleArticles = articles.filter(article => !hiddenArticles.includes(article.Name));
-    const hiddenArticlesList = articles.filter(article => hiddenArticles.includes(article.Name));
+    const visibleArticles = articles.filter(article => !hiddenArticles.includes(article.name));
+    const hiddenArticlesList = articles.filter(article => hiddenArticles.includes(article.name));
 
     const [formData, setFormData] = useState({
         title: "",
@@ -45,13 +45,14 @@ function Recent() {
         event.preventDefault();
         
         const newArticle: Article = {
-            Name: formData.title,
-            NewsArticle: formData.url,
-            PublishDate: new Date(),
-            Description: formData.description,
-            Ratings: [],
-            Category: formData.category,
-            Views: 0
+            id: 0,
+            name: formData.title,
+            newsArticle: formData.url,
+            publishDate: new Date(),
+            description: formData.description,
+            ratings: [],
+            categories: [{ categoryName: formData.category }],
+            views: 0
         };
 
         addArticle(newArticle);
@@ -73,21 +74,21 @@ function Recent() {
                 <h1 style={{ color: "black"}}>Recently Uploaded Articles</h1>
                 <div className="article-list" style={{ color: "black" }}>
                     {visibleArticles.map((article) => (
-                        <div key={article.Name}>
+                        <div key={article.name}>
                             <h2>
-                                <a href={article.NewsArticle} target="_blank" rel="noopener noreferrer" onClick={() => incrementViewCount(article.Name)}>
-                                    {article.Name}
+                                <a href={article.newsArticle} target="_blank" rel="noopener noreferrer" onClick={() => incrementViewCount(article.id)}>
+                                    {article.name}
                                 </a>
                             </h2>
                             <div className="article-meta">
-                                <p><strong>Published:</strong> {article.PublishDate.toLocaleDateString()}</p>
-                                <p><strong>Category:</strong> {article.Category}</p>
-                                <p><strong>Views:</strong> {article.Views}</p>
-                                <p><strong>Rating:</strong> {calculateAverageRating(article.Ratings).toFixed(2)}</p>
+                                <p><strong>Published:</strong> {new Date(article.publishDate).toLocaleDateString()}</p>
+                                <p><strong>Category:</strong> {article.categories?.[0]?.categoryName || "Uncategorized"}</p>
+                                <p><strong>Views:</strong> {article.views}</p>
+                                <p><strong>Rating:</strong> {calculateAverageRating(article.ratings).toFixed(2)}</p>
                             </div>
                             
-                            <p className="article-description">{article.Description}</p>
-                            <button onClick={() => hideArticle(article.Name)}>
+                            <p className="article-description">{article.description}</p>
+                            <button onClick={() => hideArticle(article.name)}>
                                 Hide Article
                             </button>
                         </div>
@@ -106,20 +107,20 @@ function Recent() {
                         {showHidden && (
                             <div className="hidden-article-list" style={{ color: "black" }}>
                                 {hiddenArticlesList.map((article) => (
-                                    <div key={article.Name}>
+                                    <div key={article.name}>
                                         <h2>
-                                            <a href={article.NewsArticle} target="_blank" rel="noopener noreferrer" onClick={() => incrementViewCount(article.Name)}>
-                                                {article.Name}
+                                            <a href={article.newsArticle} target="_blank" rel="noopener noreferrer" onClick={() => incrementViewCount(article.id)}>
+                                                {article.name}
                                             </a>
                                         </h2>
                                         <div className="hidden-article-meta">
-                                            <p><strong>Published:</strong> {article.PublishDate.toLocaleDateString()}</p>
-                                            <p><strong>Category:</strong> {article.Category}</p>
-                                            <p><strong>Views:</strong> {article.Views}</p>
-                                            <p><strong>Rating:</strong> {calculateAverageRating(article.Ratings).toFixed(2)}</p>
+                                            <p><strong>Published:</strong> {new Date(article.publishDate).toLocaleDateString()}</p>
+                                            <p><strong>Category:</strong> {article.categories?.[0]?.categoryName || "Uncategorized"}</p>
+                                            <p><strong>Views:</strong> {article.views}</p>
+                                            <p><strong>Rating:</strong> {calculateAverageRating(article.ratings).toFixed(2)}</p>
                                         </div>
-                                        <p className="hidden-article-description">{article.Description}</p>
-                                        <button onClick={() => showArticle(article.Name)}>
+                                        <p className="hidden-article-description">{article.description}</p>
+                                        <button onClick={() => showArticle(article.name)}>
                                             Show Article
                                         </button>
                                     </div>
