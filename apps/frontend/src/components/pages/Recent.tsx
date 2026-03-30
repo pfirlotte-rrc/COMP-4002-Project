@@ -82,7 +82,7 @@ function Recent() {
                             </h2>
                             <div className="article-meta">
                                 <p><strong>Published:</strong> {new Date(article.publishDate).toLocaleDateString()}</p>
-                                <p><strong>Category:</strong> {article.categories?.[0]?.categoryName || "Uncategorized"}</p>
+                                <p><strong>Category:</strong> {article.categories?.map((c: any) => c.categoryName).join(", ")}</p>
                                 <p><strong>Views:</strong> {article.views}</p>
                                 <p><strong>Rating:</strong> {calculateAverageRating(article.ratings).toFixed(2)}</p>
                             </div>
@@ -115,7 +115,7 @@ function Recent() {
                                         </h2>
                                         <div className="hidden-article-meta">
                                             <p><strong>Published:</strong> {new Date(article.publishDate).toLocaleDateString()}</p>
-                                            <p><strong>Category:</strong> {article.categories?.[0]?.categoryName || "Uncategorized"}</p>
+                                            <p><strong>Category:</strong> {article.categories?.map((c: any) => c.categoryName).join(", ")}</p>
                                             <p><strong>Views:</strong> {article.views}</p>
                                             <p><strong>Rating:</strong> {calculateAverageRating(article.ratings).toFixed(2)}</p>
                                         </div>
