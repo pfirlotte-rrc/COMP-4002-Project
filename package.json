@@ -7,9 +7,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm:start:frontend\" \"npm:start:backend\"",
-    "migrate:backend": "npx --workspace=@bitReviews/backend prisma migrate dev",
-    "start:frontend": "npm run dev --workspace=@bitReviews/frontend",
-    "start:backend": "npm start --workspace=@bitReviews/backend"
+    "migrate:backend": "npx --workspace=@bitreviews/backend prisma migrate dev",
+    "start:frontend": "npm run dev --workspace=@bitreviews/frontend",
+    "start:backend": "npm start --workspace=@bitreviews/backend"
   },
   "keywords": [],
   "author": "",
