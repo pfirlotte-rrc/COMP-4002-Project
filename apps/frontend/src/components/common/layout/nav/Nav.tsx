@@ -14,6 +14,7 @@ const navBarPages: Page[] = [
     {title: "Home", pageLink: "/"},
     {title: "Popular", pageLink: "/popular"},
     {title: "Recent", pageLink: "/recent"},
+    {title: "Categories", pageLink: "/categories"},
     {title: "User Profile", pageLink: "/userprofile"},
 ];
 
