@@ -1,8 +1,15 @@
 import prisma from "../../../../prisma/client";
 
 export const getArticles = async () => {
-  return prisma.article.findMany({
-    include: { ratings: true }
+  return await prisma.article.findMany({
+    include: {
+      ratings: {
+        include: {
+          user: true
+        }
+      },
+      categories: true
+    },
   });
 };
 
