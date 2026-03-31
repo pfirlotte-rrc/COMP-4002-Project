@@ -1,9 +1,11 @@
 import express, {Express} from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+import morgan from "morgan";
 import corsOptions from "../config/cors";
 import setupSwagger from "../config/swagger";
-import ratingRoutes from "./routes/ratingRoutes";
-import hiddenArticleRoutes from "./routes/hiddenArticleRoutes";
+import ratingRoutes from "./api/v1/routes/ratingRoutes";
+import hiddenArticleRoutes from "./api/v1/routes/hiddenArticleRoutes";
 import categoryRoutes from "./api/v1/routes/categoryRoutes";
 import errorHandler from "./api/v1/middleware/errorHandler";
 
@@ -32,7 +34,7 @@ app.get("/",  (_req, res) => {
 });
 
 // Use Articles routes
-app.use("/api/v1//articles", ratingRoutes);
+app.use("/api/v1/articles", ratingRoutes);
 
 // Use Categories routes
 app.use("/api/v1/categories", categoryRoutes);
