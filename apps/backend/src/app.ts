@@ -1,11 +1,10 @@
 import express, {Express} from "express";
-import morgan from "morgan";
 import cors from "cors";
-import dotenv from "dotenv";
 import corsOptions from "../config/cors";
 import setupSwagger from "../config/swagger";
 import ratingRoutes from "./routes/ratingRoutes";
-import categoryRoutes from "./api/v1/routes/categoryRoutes"
+import hiddenArticleRoutes from "./routes/hiddenArticleRoutes";
+import categoryRoutes from "./api/v1/routes/categoryRoutes";
 import errorHandler from "./api/v1/middleware/errorHandler";
 
 // initialize express application
@@ -37,6 +36,9 @@ app.use("/api/v1//articles", ratingRoutes);
 
 // Use Categories routes
 app.use("/api/v1/categories", categoryRoutes);
+
+// Use HiddenArticle routes
+app.use("/api/v1", hiddenArticleRoutes);
 
 //errorhandler catches errors as last element in middleware chain
 // occurs when "next" is invoked
