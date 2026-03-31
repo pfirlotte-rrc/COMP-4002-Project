@@ -40,7 +40,7 @@ app.use("/api/v1/articles", ratingRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 
 // Use HiddenArticle routes
-app.use("/api/v1/hiddenArticle", hiddenArticleRoutes);
+app.use("/api/v1/", hiddenArticleRoutes);
 
 //errorhandler catches errors as last element in middleware chain
 // occurs when "next" is invoked
