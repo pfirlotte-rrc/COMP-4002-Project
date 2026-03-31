@@ -20,7 +20,7 @@ async function main() {
     await prisma.user.deleteMany();
     await prisma.category.deleteMany();
 
-    // insert terms to db
+    // insert categories to db
     const assignArticles = [];
     for (const article of articleSeedData) {
         const created = await prisma.article.create({ data: article });

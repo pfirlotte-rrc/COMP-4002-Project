@@ -64,3 +64,18 @@ This project is a news aggregating site that allows for users to rate articles b
 - Test Data - Cj Gonzales
 - New/Refactor Component - Cj Gonzales
 - Architecture Layout Document - Cj Gonzales
+  
+## Kanban Items Completed and Who Completed Them - Sprint Review 4
+
+- Development SQL Database - Mason Josefchuk
+- Back-end App Initialization - Mason Josefchuk, Peter Firlotte, CJ Gonzales
+- Update Vercel Deployment - Peter Firlotte
+- Prisma and Client Initialization - Peter Firlotte
+- Reorganize React Hooks - Mason Josefchuk
+- Setup base front & backend setup files - Peter Firlotte
+- Setup Vercell files - Peter Firlotte
+- Backend Cors configuration - Peter Firlotte
+- Front-end sends requests to back-end - Mason Josefchuk, Peter Firlotte, CJ Gonzales
+- Resource Data Schemas - Mason Josefchuk, Peter Firlotte, CJ Gonzales
+- Backend Resource Endpoints - Mason Josefchuk, Peter Firlotte, CJ Gonzales
+- Application State Persistence - Mason Josefchuk, Peter Firlotte, CJ Gonzales

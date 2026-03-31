@@ -2,11 +2,10 @@ import express, {Express} from "express";
 import cors from "cors";
 import corsOptions from "../config/cors";
 import setupSwagger from "../config/swagger";
-import morgan from "morgan";
-import dotenv from "dotenv";
-import ratingRoutes from "./api/v1/routes/ratingRoutes";
-import hiddenArticleRoutes from "./api/v1/routes/hiddenArticleRoutes"
-
+import ratingRoutes from "./routes/ratingRoutes";
+import hiddenArticleRoutes from "./routes/hiddenArticleRoutes";
+import categoryRoutes from "./api/v1/routes/categoryRoutes";
+import errorHandler from "./api/v1/middleware/errorHandler";
 
 // initialize express application
 const app: Express = express();
@@ -32,15 +31,17 @@ app.get("/",  (_req, res) => {
     res.send("Got response from backend!");
 });
 
-app.use("/api/v1/articles", ratingRoutes);
+// Use Articles routes
+app.use("/api/v1//articles", ratingRoutes);
 
-//Where the client request enters the server to view/hide an article.
+// Use Categories routes
+app.use("/api/v1/categories", categoryRoutes);
+
+// Use HiddenArticle routes
 app.use("/api/v1", hiddenArticleRoutes);
-// use termRoutes
-// app.use("/api/v1", termRoutes);
 
 //errorhandler catches errors as last element in middleware chain
 // occurs when "next" is invoked
-// app.use(errorHandler); 
+app.use(errorHandler); 
 
 export default app;
