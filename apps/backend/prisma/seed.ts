@@ -16,6 +16,7 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
     // clear table
     await prisma.rating.deleteMany();
+    await prisma.hiddenArticle.deleteMany();
     await prisma.article.deleteMany();
     await prisma.user.deleteMany();
     await prisma.category.deleteMany();
