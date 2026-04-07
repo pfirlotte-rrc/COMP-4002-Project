@@ -60,3 +60,9 @@ nav .search-bar form {
   align-items: center;
   gap: 4px;
 }
+
+nav .user-management-links {
+  display: flex;
+  align-items: right;
+  gap: 4px;
+}
