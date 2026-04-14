@@ -98,13 +98,22 @@ This project is a news aggregating site that allows for users to rate articles b
 - Change the username and password inside of the Docker file if you want to secure the database from default settings
 - Once all settings are confirmed, run the command "Docker compose up -d" to deploy the database
 - Verify the database is active by using a SQL-based administration software like pgadmin 4 and log into the database using this url
-  "postgresql://{username}:{password}@localhost:5433/Fullstack-Project" (remove curly brackets and change default username and password 
+  "postgresql://{username}:{password}@{Database IP/localhost}:{Port Number}/Fullstack-Project" (remove curly brackets and change default username and password 
   field if you have changed the Docker username and password setting)
 
-### Create a Clerk Auth Account/integrate into Project
-- 
-
 ### Adding enviornment variables into project
+- Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
+- Create .env file inside of the Backend directory to allow the Database and Frontend to talk to the Backend.
+- Create DATABASE_URL and FRONTEND_URL variables that hosts the SQL Docker Container link and Frontend Server link
+  ex. DATABASE_URL = "postgresql://{username}:{password}@{Database IP/localhost}:{Port Number}/Fullstack-Project" (remove curly brackets)
+  ex. FRONTEND_URL = "http://{Server IP/localhost}:{Port Number}" (remove curly brackets)
+- Navigate into the Frontend directory of the project in the terminal (file_path\Full-Stack Project\apps\frontend\ )
+- Create .env file inside of the Frontend directory to allow Vercel Deployment and Backend to talk to the Frontend.
+- Create VITE_API_BASE_URL and API_BASE_URL variables that hosts the SQL Docker Container link and Frontend Server link
+  ex. API_BASE_URL = "http://{Server IP/localhost}:{Port Number}/api/v1/" (remove curly brackets)
+  ex. VITE_API_BASE_URL = "http://{Server IP/localhost}:{Port Number}" (remove curly brackets)
+
+### Create a Clerk Auth Account/integrate into Project
 - 
 
 ### Migrating and seeding the database
