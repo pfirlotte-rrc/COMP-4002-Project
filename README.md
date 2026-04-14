@@ -10,7 +10,7 @@
 
 This project is a news aggregating site that allows for users to rate articles based on how relevant those specific articles are to the topic.
 
-### User Stories
+## User Stories
 
 - As a user, I want to create an account which allows me to rate articles, so I can inform others if the content is reliable.
 - As a user, I want to browse a list of news articles grouped by topic so that I can easily find content.
@@ -79,3 +79,28 @@ This project is a news aggregating site that allows for users to rate articles b
 - Resource Data Schemas - Mason Josefchuk, Peter Firlotte, CJ Gonzales
 - Backend Resource Endpoints - Mason Josefchuk, Peter Firlotte, CJ Gonzales
 - Application State Persistence - Mason Josefchuk, Peter Firlotte, CJ Gonzales
+
+## Local Project Setup instructions
+### Installing Dependencies
+ - 
+
+### Create the Local Database
+ - Launch the Docker desktop program
+ - Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
+ - Change the username and password inside of the Docker file if you want to secure the database from default settings
+ - Once all settings are confirmed, run the command "Docker compose up -d" to deploy the database
+ - Verify the database is active by using a SQL-based administration software like pgadmin 4 and log into the database using this url
+   "postgresql://{username}:{password}@localhost:5433/Fullstack-Project" (remove curly brackets and change default username and password 
+   field if you have changed the Docker username and password setting.)
+
+### Create a Clerk Auth Account/Project
+ - 
+
+### Adding enviornment variables into project
+ - 
+
+### Migrating and seeding the database
+ - 
+
+### Running the Server and Application
+ - 
