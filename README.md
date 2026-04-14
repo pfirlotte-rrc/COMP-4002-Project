@@ -83,47 +83,47 @@ This project is a news aggregating site that allows for users to rate articles b
 ## Local Project Setup instructions
 ### Installing Dependencies
 - Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
-- In the powershell terminal, run the command "npm install" to allow for project dependencies that allow both frontend and backend to 
+- In the powershell terminal, run the command `npm install` to allow for project dependencies that allow both frontend and backend to 
   communicate effectively and not duplicate dependencies that can be used in both sections
 - Navigate into the Frontend directory of the project in the terminal (file_path\Full-Stack Project\apps\frontend\ )
-- In the powershell terminal, run the command "npm install" to allow for project dependencies to download that is exclusive to the frontend 
+- In the powershell terminal, run the command `npm install` to allow for project dependencies to download that is exclusive to the frontend 
   portion of the project
 - Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
-- In the powershell terminal, run the command "npm install" to allow for project dependencies to download that is exclusive to the backend 
+- In the powershell terminal, run the command `npm install` to allow for project dependencies to download that is exclusive to the backend 
   portion of the project
 
 ### Creating the Local Database
 - Launch the Docker desktop program (If you do not have the desktop program, install it from the Docker website)
 - Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
 - Change the username and password inside of the Docker file if you want to secure the database from default settings
-- Once all settings are confirmed, run the command "Docker compose up -d" to deploy the database
-- Verify the database is active by using a SQL-based administration software like pgadmin 4 and log into the database using this url
-  "postgresql://{username}:{password}@{Database IP/localhost}:{Port Number}/Fullstack-Project" (remove curly brackets and change default username and password 
+- Once all settings are confirmed, run the command `Docker compose up` to deploy the database
+- Verify the database is online and running by using a SQL-based administration software like pgadmin 4 and log into the database using this example url
+  `"postgresql://{username}:{password}@{Database IP/localhost}:{Port Number}/Fullstack-Project"` (remove curly brackets and change default username and password 
   field if you have changed the Docker username and password setting)
 
 ### Adding enviornment variables into project
 - Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
 - Create .env file inside of the Backend directory to allow the Database and Frontend to talk to the Backend.
-- Create DATABASE_URL and FRONTEND_URL variables that hosts the SQL Docker Container link and Frontend Server link
-  ex. DATABASE_URL = "postgresql://{username}:{password}@{Database IP/localhost}:{Port Number}/Fullstack-Project" (remove curly brackets)
-  ex. FRONTEND_URL = "http://{Server IP/localhost}:{Port Number}" (remove curly brackets)
+- Create `DATABASE_URL` and `FRONTEND_URL` variables that hosts the SQL Docker Container link and Frontend Server link
+  ex. `DATABASE_URL = "postgresql://{username}:{password}@{Database IP/localhost}:{Port Number}/Fullstack-Project"` (remove curly brackets)
+  ex. `FRONTEND_URL = "http://{Server IP/localhost}:{Port Number}"` (remove curly brackets)
 - Navigate into the Frontend directory of the project in the terminal (file_path\Full-Stack Project\apps\frontend\ )
 - Create .env file inside of the Frontend directory to allow Vercel Deployment and Backend to talk to the Frontend.
-- Create VITE_API_BASE_URL and API_BASE_URL variables that hosts the SQL Docker Container link and Frontend Server link
-  ex. API_BASE_URL = "http://{Server IP/localhost}:{Port Number}/api/v1/" (remove curly brackets)
-  ex. VITE_API_BASE_URL = "http://{Server IP/localhost}:{Port Number}" (remove curly brackets)
+- Create `VITE_API_BASE_URL` and `API_BASE_URL` variables that hosts the SQL Docker Container link and Frontend Server link
+  ex. `API_BASE_URL = "http://{Server IP/localhost}:{Port Number}/api/v1/"` (remove curly brackets)
+  ex. `VITE_API_BASE_URL = "http://{Server IP/localhost}:{Port Number}"` (remove curly brackets)
 
 ### Create a Clerk Auth Account/integrate into Project
 - 
 
 ### Migrating and seeding the database
-- Verify the Docker container containing the Database is currently running by running the command "docker ps" in the project root directory 
-  (file_path\Full-Stack Project\ ) If it isn't, run the command "docker compose up"
+- Verify the Docker container containing the Database is currently running by running the command `docker ps` in the project root directory 
+  (file_path\Full-Stack Project\ ) If it isn't, run the command `docker compose up`
 - Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
-- Verify the Database can be remotely accessed by using tools like pgadmin 4 or running the command "npx prisma studio" to verify it can be accessed
-- In the powershell terminal, run the command "npx prisma generate" to verify the prisma client has been generated
-- In the powershell terminal, run the command "npx prisma migrate dev --name <NameOfMigration>" to sync the Database schema with the current Prisma Schema
-- In the powershell terminal, run the command "npx prisma db seed" to inject the data the Docker Database needs for the website to fuction
+- Verify the Database can be remotely accessed by using tools like pgadmin 4 or running the command `npx prisma studio` to verify it can be accessed
+- In the powershell terminal, run the command `npx prisma generate` to verify the prisma client has been generated
+- In the powershell terminal, run the command `npx prisma migrate dev --name <NameOfMigration>` to sync the Database schema with the current Prisma Schema
+- In the powershell terminal, run the command `npx prisma db seed` to inject the data the Docker Database needs for the website to fuction
 
 ### Running the Server and Application
 - 
