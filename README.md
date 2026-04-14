@@ -82,33 +82,33 @@ This project is a news aggregating site that allows for users to rate articles b
 
 ## Local Project Setup instructions
 ### Installing Dependencies
- - Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
- - In the powershell terminal, run the command "npm install" to allow for project dependencies that allow both frontend and backend to 
-   communicate effectively and not duplicate dependencies that can be used in both sections
- - Navigate into the Frontend directory of the project in the terminal (file_path\Full-Stack Project\apps\frontend\ )
- - In the powershell terminal, run the command "npm install" to allow for project dependencies to download that is exclusive to the frontend 
-   portion of the project
- - Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
- - In the powershell terminal, run the command "npm install" to allow for project dependencies to download that is exclusive to the backend 
-   portion of the project
+- Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
+- In the powershell terminal, run the command "npm install" to allow for project dependencies that allow both frontend and backend to 
+  communicate effectively and not duplicate dependencies that can be used in both sections
+- Navigate into the Frontend directory of the project in the terminal (file_path\Full-Stack Project\apps\frontend\ )
+- In the powershell terminal, run the command "npm install" to allow for project dependencies to download that is exclusive to the frontend 
+  portion of the project
+- Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
+- In the powershell terminal, run the command "npm install" to allow for project dependencies to download that is exclusive to the backend 
+  portion of the project
 
 ### Creating the Local Database
- - Launch the Docker desktop program
- - Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
- - Change the username and password inside of the Docker file if you want to secure the database from default settings
- - Once all settings are confirmed, run the command "Docker compose up -d" to deploy the database
- - Verify the database is active by using a SQL-based administration software like pgadmin 4 and log into the database using this url
-   "postgresql://{username}:{password}@localhost:5433/Fullstack-Project" (remove curly brackets and change default username and password 
-   field if you have changed the Docker username and password setting)
+- Launch the Docker desktop program
+- Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
+- Change the username and password inside of the Docker file if you want to secure the database from default settings
+- Once all settings are confirmed, run the command "Docker compose up -d" to deploy the database
+- Verify the database is active by using a SQL-based administration software like pgadmin 4 and log into the database using this url
+  "postgresql://{username}:{password}@localhost:5433/Fullstack-Project" (remove curly brackets and change default username and password 
+  field if you have changed the Docker username and password setting)
 
 ### Create a Clerk Auth Account/integrate into Project
- - 
+- 
 
 ### Adding enviornment variables into project
- - 
+- 
 
 ### Migrating and seeding the database
- - 
+- 
 
 ### Running the Server and Application
- - 
+- 
