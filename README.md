@@ -93,7 +93,7 @@ This project is a news aggregating site that allows for users to rate articles b
   portion of the project
 
 ### Creating the Local Database
-- Launch the Docker desktop program
+- Launch the Docker desktop program (If you do not have the desktop program, install it from the Docker website)
 - Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
 - Change the username and password inside of the Docker file if you want to secure the database from default settings
 - Once all settings are confirmed, run the command "Docker compose up -d" to deploy the database
@@ -108,7 +108,13 @@ This project is a news aggregating site that allows for users to rate articles b
 - 
 
 ### Migrating and seeding the database
-- 
+- Verify the Docker container containing the Database is currently running by running the command "docker ps" in the project root directory 
+  (file_path\Full-Stack Project\ ) If it isn't, run the command "docker compose up"
+- Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
+- Verify the Database can be remotely accessed by using tools like pgadmin 4 or running the command "npx prisma studio" to verify it can be accessed
+- In the powershell terminal, run the command "npx prisma generate" to verify the prisma client has been generated
+- In the powershell terminal, run the command "npx prisma migrate dev --name <NameOfMigration>" to sync the Database schema with the current Prisma Schema
+- In the powershell terminal, run the command "npx prisma db seed" to inject the data the Docker Database needs for the website to fuction
 
 ### Running the Server and Application
 - 
