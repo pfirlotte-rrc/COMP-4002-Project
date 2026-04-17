@@ -12,11 +12,22 @@ export const HiddenArticleService = {
         throw new Error(`Article "${articleName}" not found`);
       }
 
+      // Change this when Clerk Auth is implemented.
+      const userId = 6;
+
       // Create a hidden article record.
       return await prisma.hiddenArticle.upsert({
-        where: { articleName },
+        where: {
+          articleId_userId: {
+            articleId: article.id,
+            userId: userId
+          }
+        },
         update: {},
-        create: { articleName }
+        create: {
+          articleId: article.id,
+          userId: userId
+        }
       });
     } catch (error) {
       console.error("Error in hideArticle service:", error);
@@ -26,16 +37,37 @@ export const HiddenArticleService = {
 
   showArticle: async (articleName: string) => {
     try {
-      const existing = await prisma.hiddenArticle.findUnique({
-        where: { articleName }
+      const article = await prisma.article.findFirst({
+        where: { name: articleName }
       });
     
+      if (!article) {
+        throw new Error(`Article "${articleName}" was not found`);
+      }
+
+      // Change this when Clerk Auth is implemented.
+      const userId = 6;
+
+      const existing = await prisma.hiddenArticle.findUnique({
+        where: {
+          articleId_userId: {
+            articleId: article.id,
+            userId: userId
+          }
+        }
+      });
+
       if (!existing) {
         throw new Error(`Article "${articleName}" is not hidden`);
       }
         
       return await prisma.hiddenArticle.delete({
-        where: { articleName }
+        where: {
+          articleId_userId: {
+            articleId: article.id,
+            userId: userId
+          }
+        }
       });
     } catch (error) {
       console.error("Error in showArticle service:", error);
@@ -45,10 +77,18 @@ export const HiddenArticleService = {
 
   getHiddenArticles: async () => {
     try {
+      // Change this when Clerk Auth is implemented.
+      const userId = 6;
+
       const hiddenArticles = await prisma.hiddenArticle.findMany({
-        select: { articleName: true }
+        where: {
+          userId: userId
+        },
+        include: {
+          article: true
+        }
       });
-      return hiddenArticles.map(h => h.articleName);
+      return hiddenArticles.map(h => h.article.name);
     } catch (error) {
       console.error("Error in getHiddenArticles service:", error);
       throw error;
@@ -57,8 +97,24 @@ export const HiddenArticleService = {
 
   isArticleHidden: async (articleName: string) => {
     try {
+      const article = await prisma.article.findFirst({
+        where: { name: articleName }
+      });
+
+      if (!article) {
+        return false;
+      }
+
+      // Change this when Clerk Auth is implemented.
+      const userId = 6;
+      
       const hidden = await prisma.hiddenArticle.findUnique({
-        where: { articleName }
+        where: {
+          articleId_userId: {
+            articleId: article.id,
+            userId: userId
+          }
+        }
       });
       return !!hidden;
     } catch (error) {
