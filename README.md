@@ -94,6 +94,7 @@ This project is a news aggregating site that allows for users to rate articles b
 
 ### Creating the Local Database
 - Launch the Docker desktop program (If you do not have the desktop program, install it from the Docker website)
+  `https://www.docker.com/products/docker-desktop/`
 - Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
 - Change the username and password inside of the Docker file if you want to secure the database from default settings
 - Once all settings are confirmed, run the command `Docker compose up` to deploy the database
