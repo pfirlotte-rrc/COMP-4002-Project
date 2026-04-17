@@ -53,11 +53,6 @@ function Nav() {
          <div className="nav-links">
             <ListPageDisplay pages={navBarPages}/>
         </div>
-        <div className="user-login">
-            <span>
-                <a href="#logon">Log In</a>
-            </span>
-        </div>
         <section className="search-bar">
             <form onSubmit={searchSubmit}>
                 <SearchBar name={searchTerm} onChange={handleSearchChange} messages={searchMessages} hideLabel={true}/>
