@@ -127,4 +127,9 @@ This project is a news aggregating site that allows for users to rate articles b
 - In the powershell terminal, run the command `npx prisma db seed` to inject the data the Docker Database needs for the website to fuction
 
 ### Running the Server and Application
-- 
+- Verify that Docker Desktop is currently running (If it isn't then launch the program)
+- Verify the Docker container containing the Database is currently running by running the command `docker ps` in the project root directory 
+  (file_path\Full-Stack Project\ ) If it isn't, run the command `docker compose up`
+- Verify that the latest prisma data is integrated into the Docker SQL Database by navigating into the Backend directory (file_path\Full-Stack Project\apps\backend\ )
+  and running the command `npx prisma db seed`
+- Navigate back to the project root directory (file_path\Full-Stack Project\ ) and run the command `npm run dev`
