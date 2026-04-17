@@ -115,7 +115,17 @@ This project is a news aggregating site that allows for users to rate articles b
   ex. `VITE_API_BASE_URL = "http://{Server IP/localhost}:{Port Number}"` (remove curly brackets)
 
 ### Create a Clerk Auth Account/integrate into Project
-- 
+- Using a web browser, navigate to the Clerk website, register for an account and login afterwards.
+  `https://clerk.com/`
+- After logging into the Clerk account, create a new project/application within the workspace provided to you by clerk. Make sure to choose React as the framework used.
+- Once the project has been created and you are on the overview page of the application in Clerk, click the navigate button in the same navbar as overview.
+- After clicking configure, navigate to the Instance section and click on the API keys section to reveal the Clerk keys needed to ensure authentication works.
+- Under the Quick copy section, change the framework to React if it hasn't already been set and copy the VITE_CLERK_PUBLISHABLE_KEY variable and key value. After copying the
+  key, Navigate to the Backend directory (file_path\Full-Stack Project\apps\backend\ ) and paste the Clerk key into the .env file that has the Database and Frontend URL.
+- Navigate to the Frontend Directory (file_path\Full-Stack Project\apps\frontend\ ) and paste the Clerk key into the .env file that has the Backend URLs.
+- Once the Clerk key is in both Frontend and Backend, navigate back to the website and locate the Secret keys section in the API keys tab and copy the default secret key.
+- After copying the secret key, navigate back to the Backend directory (file_path\Full-Stack Project\apps\backend\ ) and paste the secret key into the .env file where the 
+  previous Clerk key was written.
 
 ### Migrating and seeding the database
 - Verify the Docker container containing the Database is currently running by running the command `docker ps` in the project root directory 
