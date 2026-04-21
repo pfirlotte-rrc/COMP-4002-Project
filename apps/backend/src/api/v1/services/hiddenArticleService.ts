@@ -1,7 +1,7 @@
 import prisma from "../../../../prisma/client";
 
 export const HiddenArticleService = {
-  hideArticle: async (articleName: string) => {
+  hideArticle: async (articleName: string, userId: number) => {
     try {
       // Verify article exists.
       const article = await prisma.article.findFirst({
@@ -12,10 +12,7 @@ export const HiddenArticleService = {
         throw new Error(`Article "${articleName}" not found`);
       }
 
-      // Change this when Clerk Auth is implemented.
-      const userId = 6;
-
-      // Create a hidden article record.
+      // Create a hidden article record with the logged in User ID.
       return await prisma.hiddenArticle.upsert({
         where: {
           articleId_userId: {
@@ -35,7 +32,7 @@ export const HiddenArticleService = {
     }
   },
 
-  showArticle: async (articleName: string) => {
+  showArticle: async (articleName: string, userId: number) => {
     try {
       const article = await prisma.article.findFirst({
         where: { name: articleName }
@@ -44,9 +41,6 @@ export const HiddenArticleService = {
       if (!article) {
         throw new Error(`Article "${articleName}" was not found`);
       }
-
-      // Change this when Clerk Auth is implemented.
-      const userId = 6;
 
       const existing = await prisma.hiddenArticle.findUnique({
         where: {
@@ -75,10 +69,8 @@ export const HiddenArticleService = {
     }
   },
 
-  getHiddenArticles: async () => {
+  getHiddenArticles: async (userId: number) => {
     try {
-      // Change this when Clerk Auth is implemented.
-      const userId = 6;
 
       const hiddenArticles = await prisma.hiddenArticle.findMany({
         where: {
@@ -95,7 +87,7 @@ export const HiddenArticleService = {
     }
   },
 
-  isArticleHidden: async (articleName: string) => {
+  isArticleHidden: async (articleName: string, userId: number) => {
     try {
       const article = await prisma.article.findFirst({
         where: { name: articleName }
@@ -104,9 +96,6 @@ export const HiddenArticleService = {
       if (!article) {
         return false;
       }
-
-      // Change this when Clerk Auth is implemented.
-      const userId = 6;
       
       const hidden = await prisma.hiddenArticle.findUnique({
         where: {
