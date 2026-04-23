@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useArticlesContext } from "../../hooks/useArticles";
 import { useSearch } from "../../hooks/useSearch";
 import SearchBar from "../search-bar/searchBar";
+import { useAuth } from "@clerk/clerk-react";
 
 function Popular() {
   const {
@@ -12,10 +13,8 @@ function Popular() {
     loading,
   } = useArticlesContext();
 
-  const currentUserId = 1;
-
+  const { isSignedIn, getToken, userId } = useAuth();
   const { searchTerm, searchMessages, handleSearchChange } = useSearch();
-
   const [filteredArticles, setFilteredArticles] = useState<any[]>([]);
 
   useEffect(() => {
@@ -40,7 +39,23 @@ function Popular() {
   }, [searchTerm, articles]);
 
   const hasUserRated = (article: any) =>
-    article.ratings?.some((r: any) => r.userId === currentUserId);
+    article.ratings?.some((r: any) => r.user?.userName === userId);
+
+  const handleRate = async (articleId: number, value: number) => {
+    if (!isSignedIn) {
+      alert("You must be logged in to rate articles.");
+      return;
+    }
+
+    const token = await getToken();
+
+    if (!token) {
+      alert("Authentication failed. Please log in again.");
+      return;
+    }
+
+    await updateRating(articleId, value, token);
+  };
 
   if (loading) return <p>Loading articles...</p>;
 
@@ -71,36 +86,31 @@ function Popular() {
 
                 <p>
                   Categories:{" "}
-                  {article.categories
-                    ?.map((c: any) => c.categoryName)
-                    .join(", ")}
+                  {article.categories?.map((c: any) => c.categoryName).join(", ")}
                 </p>
 
                 <p>Views: {article.views}</p>
 
                 <p>
-                  Rating:{" "}
-                  {calculateAverageRating(article.ratings || []).toFixed(2)}
+                  Rating: {calculateAverageRating(article.ratings || []).toFixed(2)}
                 </p>
 
                 <div>
-                  <p>Rate:</p>
-                  {[5, 4, 3, 2, 1].map((v) => (
-                    <button
-                      key={v}
-                      disabled={rated}
-                      onClick={() =>
-                        updateRating(article.id, currentUserId, v)
-                      }
-                    >
-                      {v}
-                    </button>
-                  ))}
-
-                  {rated && (
-                    <p style={{ color: "red" }}>
-                      You already rated this article
-                    </p>
+                  {!isSignedIn && (
+                    <p style={{ color: "gray" }}>Log in to rate articles</p>
+                  )}
+                  {isSignedIn && !rated && (
+                    <>
+                      <p>Rate:</p>
+                      {[5, 4, 3, 2, 1].map((v) => (
+                        <button key={v} onClick={() => handleRate(article.id, v)}>
+                          {v}
+                        </button>
+                      ))}
+                    </>
+                  )}
+                  {isSignedIn && rated && (
+                    <p style={{ color: "red" }}>You already rated this article</p>
                   )}
                 </div>
               </div>
@@ -108,7 +118,8 @@ function Popular() {
           })
         )}
       </div>
-      <div style={{ height: '100px' }}></div>
+
+      <div style={{ height: "100px" }}></div>
     </main>
   );
 }
