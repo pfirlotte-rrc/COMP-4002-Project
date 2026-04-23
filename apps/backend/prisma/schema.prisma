@@ -39,10 +39,12 @@ model Rating {
 } 
 
 model User {  
-  userId         Int @id @default(autoincrement())
+  userId         Int @id
   userName       String @unique
   ratings        Rating[]
   hiddenArticles HiddenArticle[]
+  category       Category[]
+
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 }
@@ -51,6 +53,8 @@ model Category {
   categoryId    Int @id @default(autoincrement())
   categoryName  String @unique
   articles      Article[]
+  createdBy     User @relation(fields: [userId], references: [userId])
+  
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
