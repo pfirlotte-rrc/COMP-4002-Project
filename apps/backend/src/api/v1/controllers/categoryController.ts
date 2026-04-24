@@ -31,9 +31,13 @@ export const createNewCategory = async(
     next: NextFunction
 ): Promise<void> => {
     try {
-        const newCategory = await categoryService.createNewCategory(req.body);
-        res.status(201)
-            .json(successResponse(newCategory, "Category created succesfully"));
+        if(req.userId) {
+            const newCategory = await categoryService.createNewCategory(req.body, req.userId);
+            res.status(201)
+                .json(successResponse(newCategory, "Category created succesfully"));
+        } else {
+            throw new Error("User not found");
+        }
     } catch(error) {
         next(error);
     }

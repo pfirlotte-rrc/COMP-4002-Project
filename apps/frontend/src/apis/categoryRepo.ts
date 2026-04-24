@@ -26,7 +26,10 @@ export async function fetchCategories(): Promise<Category[]> {
 }
 
 
-export async function addNewCategory(category: NewCategory): Promise<Category> {
+export async function addNewCategory(
+    category: NewCategory,
+    sessionToken: string | null
+): Promise<Category> {
 
     const updateResponse: Response = await fetch(
         `${BASE_URL}${CATEGORY_ENDPOINT}`,
@@ -35,6 +38,7 @@ export async function addNewCategory(category: NewCategory): Promise<Category> {
             body: JSON.stringify({...category}),
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${sessionToken}`
             }
         }
     );

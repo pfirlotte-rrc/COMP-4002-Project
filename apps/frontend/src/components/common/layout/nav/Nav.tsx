@@ -16,7 +16,7 @@ const navBarPages: Page[] = [
     {title: "Popular", pageLink: "/popular"},
     {title: "Recent", pageLink: "/recent"},
     {title: "Categories", pageLink: "/categories"},
-    {title: "User Profile", pageLink: "/userprofile"},
+    // {title: "User Profile", pageLink: "/userprofile"},
 ];
 
 function Nav() {
@@ -52,11 +52,6 @@ function Nav() {
         </div>
          <div className="nav-links">
             <ListPageDisplay pages={navBarPages}/>
-        </div>
-        <div className="user-login">
-            <span>
-                <a href="#logon">Log In</a>
-            </span>
         </div>
         <section className="search-bar">
             <form onSubmit={searchSubmit}>

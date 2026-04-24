@@ -1,7 +1,9 @@
 import express, {Router} from "express";
-import { validateRequest } from "../middleware/validate";
 import { categorySchema } from "../validations/categoryValidation";
-import * as categoryController from "../controllers/categoryController"
+import * as categoryController from "../controllers/categoryController";
+import { findOrCreateUser } from "../middleware/findOrCreateUser";
+import { requireAuth } from "@clerk/express";
+import { validateRequest } from "../middleware/validate";
 
 /**
  * Routes determine which endpoints are made available, which controller
@@ -17,7 +19,12 @@ router.get("/", categoryController.getAllCategories);
 
 // methods including data invoked validateRequest middleware
 // tested against categorySchema
-router.post("/", validateRequest(categorySchema), 
-    categoryController.createNewCategory);
+router.post(
+    "/" ,
+    requireAuth(),
+    findOrCreateUser,
+    validateRequest(categorySchema), 
+    categoryController.createNewCategory
+);
 
 export default router;

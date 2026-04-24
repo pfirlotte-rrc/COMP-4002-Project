@@ -17,11 +17,11 @@ export const getUserById = async(id: string): Promise<User|null> => {
     }
 }
 
-export const createUser = async(userData: { userId: string }): Promise<User> => {
+export const createUser = async(userData: { userId: string}): Promise<User> => {
     const newUser = await prisma.user.create({
         data: {
             userId: userData.userId,
-            userName: userData.userId
+            userName: userData.userId,
         }
     });
 
