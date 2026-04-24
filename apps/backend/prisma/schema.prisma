@@ -39,7 +39,7 @@ model Rating {
 } 
 
 model User {  
-  userId         String @id 
+  userId         String @id @default(uuid())
   userName       String @unique
   ratings        Rating[]
   hiddenArticles HiddenArticle[]

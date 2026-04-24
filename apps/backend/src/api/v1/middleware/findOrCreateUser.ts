@@ -21,7 +21,7 @@ export const findOrCreateUser = async(
         if(userId) {
             let backendUser : User|null = await userService.getUserById(userId);
             if(!backendUser) {
-                backendUser= await userService.createUser({id: userId});
+                backendUser= await userService.createUser({userId: userId});
             }
         }
         

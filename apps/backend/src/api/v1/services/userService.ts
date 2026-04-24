@@ -5,7 +5,7 @@ export const getUserById = async(id: string): Promise<User|null> => {
     const user: User | null = await prisma.user.findUnique(
         {
             where: {
-                id: id
+                userId: id
             }
         }
     );
@@ -17,10 +17,11 @@ export const getUserById = async(id: string): Promise<User|null> => {
     }
 }
 
-export const createUser = async(userData: { id: string}): Promise<User> => {
+export const createUser = async(userData: { userId: string }): Promise<User> => {
     const newUser = await prisma.user.create({
         data: {
-            ...userData
+            userId: userData.userId,
+            userName: userData.userId
         }
     });
 
