@@ -17,11 +17,17 @@ export type RequestData<T extends RequestBody = RequestBody> = {
     query: Record<string, string | string[]>;
 }
 
-// extend the Express namespace's Request interface via interface merging
 declare global{
+
     namespace Express {
+
         export interface Request {
+
             userId?: string|null;
+
         }
+
     }
+
+
 }
