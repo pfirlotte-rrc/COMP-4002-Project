@@ -5,8 +5,17 @@ export const HiddenArticleController = {
   hideArticle: async (req: Request, res: Response) => {
     try {
       const { articleName } = req.body;
+      const userId = req.userId;
       
-      await HiddenArticleService.hideArticle(articleName);
+      if (!userId) {
+        res.status(401).json({
+          success: false,
+          message: `Authentication failed. Please login.`
+        });
+        return;
+      }
+      
+      await HiddenArticleService.hideArticle(articleName, userId);
       
       res.status(200).json({
         success: true,
@@ -25,8 +34,17 @@ export const HiddenArticleController = {
   showArticle: async (req: Request, res: Response) => {
     try {
       const { articleName } = req.body;
+      const userId = req.userId;
+
+      if (!userId) {
+        res.status(401).json({
+          success: false,
+          message: `Authentication failed. Please login.`
+        });
+        return;
+      }
       
-      await HiddenArticleService.showArticle(articleName);
+      await HiddenArticleService.showArticle(articleName, userId);
       
       res.status(200).json({
         success: true,
@@ -42,9 +60,19 @@ export const HiddenArticleController = {
     }
   },
 
-  getHiddenArticles: async (_req: Request, res: Response) => {
+  getHiddenArticles: async (req: Request, res: Response) => {
     try {
-      const hiddenArticles = await HiddenArticleService.getHiddenArticles();
+      const userId = req.userId;
+
+      if (!userId) {
+        res.status(200).json({
+          success: true,
+          data: []
+        });
+        return;
+      }
+
+      const hiddenArticles = await HiddenArticleService.getHiddenArticles(userId);
       
       res.status(200).json({
         success: true,
@@ -62,7 +90,17 @@ export const HiddenArticleController = {
   checkHiddenStatus: async (req: Request, res: Response) => {
     try {
       const articleName = req.params.articleName as string;
-      const isHidden = await HiddenArticleService.isArticleHidden(articleName);
+      const userId = req.userId;
+
+      if (!userId) {
+        res.status(200).json({
+          success: true,
+          data: { isHidden: false }
+        });
+        return;
+      }
+      
+      const isHidden = await HiddenArticleService.isArticleHidden(articleName, userId);
       
       res.status(200).json({
         success: true,
