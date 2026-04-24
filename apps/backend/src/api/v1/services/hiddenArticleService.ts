@@ -1,7 +1,7 @@
 import prisma from "../../../../prisma/client";
 
 export const HiddenArticleService = {
-  hideArticle: async (articleName: string, userId: number) => {
+  hideArticle: async (articleName: string, userId: string) => {
     try {
       // Verify article exists.
       const article = await prisma.article.findFirst({
@@ -32,7 +32,7 @@ export const HiddenArticleService = {
     }
   },
 
-  showArticle: async (articleName: string, userId: number) => {
+  showArticle: async (articleName: string, userId: string) => {
     try {
       const article = await prisma.article.findFirst({
         where: { name: articleName }
@@ -69,7 +69,7 @@ export const HiddenArticleService = {
     }
   },
 
-  getHiddenArticles: async (userId: number) => {
+  getHiddenArticles: async (userId: string) => {
     try {
 
       const hiddenArticles = await prisma.hiddenArticle.findMany({
@@ -87,7 +87,7 @@ export const HiddenArticleService = {
     }
   },
 
-  isArticleHidden: async (articleName: string, userId: number) => {
+  isArticleHidden: async (articleName: string, userId: string) => {
     try {
       const article = await prisma.article.findFirst({
         where: { name: articleName }
