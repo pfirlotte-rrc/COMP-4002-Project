@@ -14,7 +14,7 @@ interface ArticlesContextType {
   loading: boolean;
 
   incrementViewCount: (articleId: number) => Promise<void>;
-  updateRating: (articleId: number, userId: number, value: number) => Promise<void>;
+  updateRating: (articleId: number, userId: number, token: string) => Promise<void>;
 
   calculateAverageRating: (ratings: Rating[]) => number;
   hasUserRated: (articleId: number, userId: number) => boolean;
@@ -32,19 +32,22 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
   const [hiddenArticles, setHiddenArticles] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchArticles = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/v1/articles");
+    if (!res.ok) {
+      const errorBody = await res.text();
+      throw new Error(`HTTP ${res.status}: ${errorBody}`);
+    }
+    const data = await res.json();
+    setArticles(data);
+  } catch (error) {
+    console.error("Failed to fetch articles:", error);
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/api/v1/articles");
-        const data = await res.json();
-        setArticles(data);
-      } catch (error) {
-        console.error("Failed to fetch articles:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchArticles();
     fetchHiddenArticles();
   }, []);
@@ -82,34 +85,25 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const updateRating = async (
-    articleId: number,
-    userId: number,
-    value: number
-  ) => {
-    try {
-      await fetch(`http://localhost:3000/api/v1/articles/${articleId}/rate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, rating: value }),
-      });
-
-      setArticles(prev =>
-        prev.map(a =>
-          a.id === articleId
-            ? {
-                ...a,
-                ratings: [...(a.ratings || []), { userId, value }],
-              }
-            : a
-        )
-      );
-    } catch (error: any) {
-      alert(error.message);
-    }
-  };
+ const updateRating = async (
+  articleId: number,
+  value: number,
+  token: string
+) => {
+  try {
+    await fetch(`http://localhost:3000/api/v1/articles/${articleId}/rate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ rating: value }),
+    });
+    await fetchArticles(); 
+  } catch (error: any) {
+    alert(error.message);
+  }
+};
 
   const hasUserRated = (articleId: number, userId: number) => {
     const article = articles.find(a => a.id === articleId);

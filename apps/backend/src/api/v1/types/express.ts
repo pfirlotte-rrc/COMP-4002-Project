@@ -16,3 +16,17 @@ export type RequestData<T extends RequestBody = RequestBody> = {
     params: Record<string, string>;
     query: Record<string, string | string[]>;
 }
+
+declare global{
+
+    namespace Express {
+
+        export interface Request {
+
+            userId?: string|null;
+
+        }
+
+    }
+
+}
