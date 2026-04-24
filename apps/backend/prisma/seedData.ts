@@ -7,10 +7,10 @@ export const articleSeedData = [
     views: 37,
     ratings: {
       create: [
-        { value: 2, user: { connectOrCreate: { where: { userName: "User1" }, create: { userId: "user1", userName: "User1" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 2, user: { connectOrCreate: { where: { userName: "User1" }, create: { userName: "User1" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
@@ -28,9 +28,9 @@ export const articleSeedData = [
     views: 26,
     ratings: {
       create: [
-        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
@@ -49,10 +49,10 @@ export const articleSeedData = [
     views: 73,
     ratings: {
       create: [
-        { value: 2, user: { connectOrCreate: { where: { userName: "User1" }, create: { userId: "user1", userName: "User1" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 2, user: { connectOrCreate: { where: { userName: "User1" }, create: { userName: "User1" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
@@ -71,10 +71,10 @@ export const articleSeedData = [
     views: 42,
     ratings: {
       create: [
-        { value: 1, user: { connectOrCreate: { where: { userName: "User1" }, create: { userId: "user1", userName: "User1" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 1, user: { connectOrCreate: { where: { userName: "User1" }, create: { userName: "User1" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
@@ -92,10 +92,10 @@ export const articleSeedData = [
     views: 58,
     ratings: {
       create: [
-        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userId: "user1", userName: "User1" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 1, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userName: "User1" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 1, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
@@ -113,10 +113,10 @@ export const articleSeedData = [
     views: 95,
     ratings: {
       create: [
-        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userId: "user1", userName: "User1" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 2, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userName: "User1" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 2, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
@@ -134,10 +134,10 @@ export const articleSeedData = [
     views: 81,
     ratings: {
       create: [
-        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userId: "user1", userName: "User1" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userName: "User1" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
@@ -156,10 +156,10 @@ export const articleSeedData = [
     views: 112,
     ratings: {
       create: [
-        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userId: "user1", userName: "User1" } } } },
-        { value: 2, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 1, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userName: "User1" } } } },
+        { value: 2, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 1, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
@@ -177,10 +177,10 @@ export const articleSeedData = [
     views: 63,
     ratings: {
       create: [
-        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userId: "user1", userName: "User1" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 1, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userName: "User1" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 1, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
@@ -197,10 +197,10 @@ export const articleSeedData = [
     views: 147,
     ratings: {
       create: [
-        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userId: "user1", userName: "User1" } } } },
-        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userId: "user2", userName: "User2" } } } },
-        { value: 3, user: { connectOrCreate: { where: { userName: "User3" }, create: { userId: "user3", userName: "User3" } } } },
-        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userId: "user4", userName: "User4" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User1" }, create: { userName: "User1" } } } },
+        { value: 4, user: { connectOrCreate: { where: { userName: "User2" }, create: { userName: "User2" } } } },
+        { value: 3, user: { connectOrCreate: { where: { userName: "User3" }, create: { userName: "User3" } } } },
+        { value: 5, user: { connectOrCreate: { where: { userName: "User4" }, create: { userName: "User4" } } } },
       ],
     },
     categories: {
