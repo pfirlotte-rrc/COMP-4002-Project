@@ -78,8 +78,10 @@ function Popular() {
 
             return (
               <div key={article.id} style={{ marginBottom: "40px" }}>
-                <h2 onClick={() => incrementViewCount(article.id)}>
-                  {article.name}
+                <h2>
+                      <a href={article.newsArticle} target="_blank" rel="noopener noreferrer" onClick={() => incrementViewCount(article.id)}>
+                      {article.name}
+                  </a>
                 </h2>
 
                 <p>{article.description}</p>
