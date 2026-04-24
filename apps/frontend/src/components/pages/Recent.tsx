@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useArticlesContext } from '../../hooks/useArticles';
 import type { Article } from "../../apis/prismaArticle";
+import { useAuth } from '@clerk/clerk-react';
 
 /**
  * Recent Refactor to fit new Hook-Service-Repository Architecture
@@ -21,10 +22,17 @@ import type { Article } from "../../apis/prismaArticle";
  */
 
 function Recent() {
-    const { articles, hiddenArticles, calculateAverageRating, incrementViewCount, addArticle, hideArticle, showArticle } = useArticlesContext();
+    const { articles, hiddenArticles, refreshHiddenArticles, calculateAverageRating, incrementViewCount, addArticle, hideArticle, showArticle } = useArticlesContext();
     const [showHidden, setShowHidden] = useState(false);
     const visibleArticles = articles.filter(article => !hiddenArticles.includes(article.name));
     const hiddenArticlesList = articles.filter(article => hiddenArticles.includes(article.name));
+    const { isSignedIn } = useAuth();
+
+    useEffect(() => {
+        if (isSignedIn) {
+        refreshHiddenArticles();
+        }
+    }, [isSignedIn]);
 
     const [formData, setFormData] = useState({
         title: "",

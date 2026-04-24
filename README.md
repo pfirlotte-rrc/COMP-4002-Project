@@ -10,7 +10,7 @@
 
 This project is a news aggregating site that allows for users to rate articles based on how relevant those specific articles are to the topic.
 
-### User Stories
+## User Stories
 
 - As a user, I want to create an account which allows me to rate articles, so I can inform others if the content is reliable.
 - As a user, I want to browse a list of news articles grouped by topic so that I can easily find content.
@@ -79,3 +79,68 @@ This project is a news aggregating site that allows for users to rate articles b
 - Resource Data Schemas - Mason Josefchuk, Peter Firlotte, CJ Gonzales
 - Backend Resource Endpoints - Mason Josefchuk, Peter Firlotte, CJ Gonzales
 - Application State Persistence - Mason Josefchuk, Peter Firlotte, CJ Gonzales
+
+## Local Project Setup instructions
+### Installing Dependencies
+- Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
+- In the powershell terminal, run the command `npm install` to allow for project dependencies that allow both frontend and backend to 
+  communicate effectively and not duplicate dependencies that can be used in both sections
+- Navigate into the Frontend directory of the project in the terminal (file_path\Full-Stack Project\apps\frontend\ )
+- In the powershell terminal, run the command `npm install` to allow for project dependencies to download that is exclusive to the frontend 
+  portion of the project
+- Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
+- In the powershell terminal, run the command `npm install` to allow for project dependencies to download that is exclusive to the backend 
+  portion of the project
+
+### Creating the Local Database
+- Launch the Docker desktop program (If you do not have the desktop program, install it from the Docker website)
+  `https://www.docker.com/products/docker-desktop/`
+- Navigate into the project root directory in the terminal (file_path\Full-Stack Project\ )
+- Change the username and password inside of the Docker file if you want to secure the database from default settings
+- Once all settings are confirmed, run the command `Docker compose up` to deploy the database
+- Verify the database is online and running by using a SQL-based administration software like pgadmin 4 and log into the database using this example url
+  `"postgresql://{username}:{password}@{Database IP/localhost}:{Port Number}/Fullstack-Project"` (remove curly brackets and change default username and password 
+  field if you have changed the Docker username and password setting)
+
+### Adding enviornment variables into project
+- Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
+- Create .env file inside of the Backend directory to allow the Database and Frontend to talk to the Backend.
+- Create `DATABASE_URL` and `FRONTEND_URL` variables that hosts the SQL Docker Container link and Frontend Server link
+  ex. `DATABASE_URL = "postgresql://{username}:{password}@{Database IP/localhost}:{Port Number}/Fullstack-Project"` (remove curly brackets)
+  ex. `FRONTEND_URL = "http://{Server IP/localhost}:{Port Number}"` (remove curly brackets)
+- Navigate into the Frontend directory of the project in the terminal (file_path\Full-Stack Project\apps\frontend\ )
+- Create .env file inside of the Frontend directory to allow Vercel Deployment and Backend to talk to the Frontend.
+- Create `VITE_API_BASE_URL` and `API_BASE_URL` variables that hosts the SQL Docker Container link and Frontend Server link
+  ex. `API_BASE_URL = "http://{Server IP/localhost}:{Port Number}/api/v1/"` (remove curly brackets)
+  ex. `VITE_API_BASE_URL = "http://{Server IP/localhost}:{Port Number}"` (remove curly brackets)
+
+### Create a Clerk Auth Account/integrate into Project
+- Using a web browser, navigate to the Clerk website, register for an account and login afterwards.
+  `https://clerk.com/`
+- After logging into the Clerk account, create a new project/application within the workspace provided to you by clerk. Make sure to choose React as the framework used.
+- Once the project has been created and you are on the overview page of the application in Clerk, click the navigate button in the same navbar as overview.
+- After clicking configure, navigate to the Instance section and click on the API keys section to reveal the Clerk keys needed to ensure authentication works.
+- Under the Quick copy section, change the framework to React if it hasn't already been set and copy the VITE_CLERK_PUBLISHABLE_KEY variable and key value. After copying the
+  key, Navigate to the Backend directory (file_path\Full-Stack Project\apps\backend\ ) and paste the Clerk key into the .env file that has the Database and Frontend URL.
+- Navigate to the Frontend Directory (file_path\Full-Stack Project\apps\frontend\ ) and paste the Clerk key into the .env file that has the Backend URLs.
+- Once the Clerk key is in both Frontend and Backend, navigate back to the website and locate the Secret keys section in the API keys tab and copy the default secret key.
+- After copying the secret key, navigate back to the Backend directory (file_path\Full-Stack Project\apps\backend\ ) and paste the secret key into the .env file where the 
+  previous Clerk key was written.
+
+### Migrating and seeding the database
+- Verify the Docker container containing the Database is currently running by running the command `docker ps` in the project root directory 
+  (file_path\Full-Stack Project\ ) If it isn't, run the command `docker compose up`
+- Navigate into the Backend directory of the project in the terminal (file_path\Full-Stack Project\apps\backend\ )
+- Verify the Database can be remotely accessed by using tools like pgadmin 4 or running the command `npx prisma studio` to verify it can be accessed
+- In the powershell terminal, run the command `npx prisma generate` to verify the prisma client has been generated
+- In the powershell terminal, run the command `npx prisma migrate dev --name <NameOfMigration>` to convert the prisma code to an sql migration file
+- In the powershell terminal, run the command `npx prisma migrate dev` to upload the sql migration file generated by prisma to the remote database
+- In the powershell terminal, run the command `npx prisma db seed` to inject the data the Docker Database needs for the website to fuction
+
+### Running the Server and Application
+- Verify that Docker Desktop is currently running (If it isn't then launch the program)
+- Verify the Docker container containing the Database is currently running by running the command `docker ps` in the project root directory 
+  (file_path\Full-Stack Project\ ) If it isn't, run the command `docker compose up`
+- Verify that the latest prisma data is integrated into the Docker SQL Database by navigating into the Backend directory (file_path\Full-Stack Project\apps\backend\ )
+  and running the command `npx prisma db seed`
+- Navigate back to the project root directory (file_path\Full-Stack Project\ ) and run the command `npm run dev`

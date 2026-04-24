@@ -5,29 +5,59 @@ export const getArticles = async () => {
     include: {
       ratings: {
         include: {
-          user: true
-        }
+          user: true, 
+        },
       },
-      categories: true
+      categories: true,
     },
   });
 };
 
-export const rateArticle = async (articleId: number, userId: number, value: number) => {
-  const existing = await prisma.rating.findFirst({
-    where: { articleId, userId }
+export const rateArticle = async (
+  articleId: number,
+  clerkUserId: string,
+  value: number
+) => {
+
+  const userName = clerkUserId;
+
+  let user = await prisma.user.findUnique({
+    where: { userName },
   });
 
-  if (existing) throw new Error("User has already rated this article");
+  if (!user) {
+    user = await prisma.user.create({
+      data: { userName },
+    });
+  }
 
-  return prisma.rating.create({
-    data: { articleId, userId, value }
+  const existing = await prisma.rating.findFirst({
+    where: {
+      articleId,
+      userId: user.userId,
+    },
+  });
+
+  if (existing) {
+    throw new Error("User has already rated this article");
+  }
+
+  return await prisma.rating.create({
+    data: {
+      articleId,
+      userId: user.userId,
+      value,
+    },
   });
 };
 
 export const incrementViewCount = async (articleId: number) => {
-  return prisma.article.update({
+  return await prisma.article.update({
     where: { id: articleId },
-    data: { views: { increment: 1 } }
+    data: {
+      views: {
+        increment: 1,
+      },
+    },
   });
 };

@@ -8,6 +8,7 @@ export const HiddenArticlesService = {
     try {
       const response = await fetch(`${API_BASE_URL}/hide`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -32,6 +33,7 @@ export const HiddenArticlesService = {
     try {
       const response = await fetch(`${API_BASE_URL}/show`, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -54,7 +56,9 @@ export const HiddenArticlesService = {
    */
   getHidden: async (): Promise<string[]> => {
     try {
-      const response = await fetch(`${API_BASE_URL}/`);
+      const response = await fetch(`${API_BASE_URL}/`, { 
+        credentials: "include", 
+        });
       
       if (!response.ok) {
         throw new Error("Failed to fetch hidden articles");
@@ -74,7 +78,9 @@ export const HiddenArticlesService = {
    */
   checkHiddenStatus: async (articleName: string): Promise<boolean> => {
     try {
-      const response = await fetch(`${API_BASE_URL}/check/${encodeURIComponent(articleName)}`);
+      const response = await fetch(`${API_BASE_URL}/check/${encodeURIComponent(articleName)}`, {
+        credentials: "include",
+      });
       
       if (!response.ok) {
         throw new Error("Failed to check hidden status");

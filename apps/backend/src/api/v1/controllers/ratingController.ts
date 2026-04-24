@@ -14,25 +14,49 @@ export const getArticles = async (_req: Request, res: Response) => {
   }
 };
 
+
 export const rateArticle = async (req: Request, res: Response) => {
   try {
     const articleId = parseInt(parseSingleParam(req.params.id), 10);
-    const userId = parseInt(req.body.userId, 10);
-    const rating = req.body.rating;
 
-    const result = await articleService.rateArticle(articleId, userId, rating);
-    res.status(201).json(result);
+    // Clerk injects this via middleware
+    const clerkUserId = req.auth?.userId;
+
+    if (!clerkUserId) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    const rating = Number(req.body.rating);
+
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({ error: "Invalid rating value" });
+    }
+
+    const result = await articleService.rateArticle(
+      articleId,
+      clerkUserId,
+      rating
+    );
+
+    return res.status(201).json(result);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };
+
 
 export const incrementViews = async (req: Request, res: Response) => {
   try {
     const articleId = parseInt(parseSingleParam(req.params.id), 10);
+
+    if (isNaN(articleId)) {
+      return res.status(400).json({ error: "Invalid article ID" });
+    }
+
     const article = await articleService.incrementViewCount(articleId);
-    res.json(article);
+
+    return res.json(article);
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };
