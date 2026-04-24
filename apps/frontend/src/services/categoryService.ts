@@ -18,7 +18,7 @@ export const categoryService = {
         return { isValid: true, error: null };
     },
 
-    createNewCategory(categoryName: string): Promise<Category> {
-        return addNewCategory({ categoryName: categoryName.trim() });
+    createNewCategory(categoryName: string, sessionToken: string | null): Promise<Category> {
+        return addNewCategory({ categoryName: categoryName.trim() }, sessionToken);
     },
 };

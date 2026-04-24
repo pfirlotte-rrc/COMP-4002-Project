@@ -30,7 +30,7 @@ model Article {
 model Rating {
   ratingId      Int @id @default(autoincrement())
   articleId     Int
-  userId        Int
+  userId        String
   value         Int
   user          User @relation(fields: [userId], references: [userId])
   article       Article @relation(fields: [articleId], references: [id])
@@ -39,11 +39,11 @@ model Rating {
 } 
 
 model User {  
-  userId         Int @id
+  userId         String @id @default(uuid())
   userName       String @unique
   ratings        Rating[]
   hiddenArticles HiddenArticle[]
-  category       Category[]
+  categories     Category[]
 
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
@@ -51,9 +51,10 @@ model User {
 
 model Category {  
   categoryId    Int @id @default(autoincrement())
+  userId        String?
   categoryName  String @unique
   articles      Article[]
-  createdBy     User @relation(fields: [userId], references: [userId])
+  createdBy     User? @relation(fields: [userId], references: [userId])
   
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -62,7 +63,7 @@ model Category {
 model HiddenArticle {
   id          Int      @id @default(autoincrement())
   articleId   Int
-  userId      Int
+  userId      String
   hiddenAt    DateTime @default(now())
 
   article     Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)

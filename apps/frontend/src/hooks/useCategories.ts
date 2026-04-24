@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { FrontendCategory as Category } from "@shared/types/frontend-category";
 import * as CategoryService from "../services/categoryService"
+import { useAuth } from "@clerk/clerk-react";
 
 export function useCategories() {
+    const {getToken, isSignedIn} = useAuth();
     const [categories, updateCategories] = useState<Category[]>([]);
     const [error, setError] = useState<string | null>(null);
 
@@ -17,7 +19,8 @@ export function useCategories() {
 
     const createNewCategory = async (categoryName: string) => {
         try {
-            await CategoryService.categoryService.createNewCategory(categoryName);
+            let sessionToken = isSignedIn? await getToken() : null;
+            await CategoryService.categoryService.createNewCategory(categoryName, sessionToken);
             await fetchCategories();
         } catch (errorObject) {
             setError(`${errorObject}`);

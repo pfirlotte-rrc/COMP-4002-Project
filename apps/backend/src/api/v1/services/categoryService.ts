@@ -19,14 +19,14 @@ export const fetchAllCategories = async(): Promise<Category[]> => {
     }));
 }
 
-export const createNewCategory = async(categoryData: {
-    categoryId: number,
-    categoryName: string
-}): Promise<Category> => {
-    // create a new category with categoryData as its column values, except for isFavourite as false
+export const createNewCategory = async(
+    categoryData: {categoryName: string},
+    userId: string
+): Promise<Category> => {
     const newCategory: Category = await prisma.category.create({
         data: {
-            ...categoryData
+            categoryName: categoryData.categoryName,
+            userId,
         }
     });
 
