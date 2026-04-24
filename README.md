@@ -34,16 +34,11 @@ This project is a news aggregating site that allows for users to rate articles b
 ## Kanban Items Completed and Who Completed Them - Sprint Review 2
 
 - Multi Page Navigation -  Peter Firlotte
-- Project README update -  Peter Firlotte & Mason Josefchuk
+- Project README update -  Peter Firlotte/Mason Josefchuk
 - Navigation Interfaces -  Peter Firlotte (Completed in previous sprint)
-- Feature page "Recent" -  Mason Josefchuk
-- Feature page "Recent": Form component - Mason Josefchuk
-- Feature page "Popular" -  Cj Gonzales
-- Feature page "Popular": Form component -  Cj Gonzales
-- Feature page "Popular": Element Add/Remove component -  Cj Gonzales
-- Feature page "User Page" - Peter Firlotte
-- Feature page "User Page": Form component -  Peter Firlotte
-- Feature page "User Page": Element Add/Remove component -  Peter Firlotte
+- Feature page Recent -  Mason Josefchuk
+- Feature page Popular -  Cj Gonzales
+- Feature page User Page - Peter Firlotte
 - Create central fake article section for testing - Cj Gonzales
 
 ## Kanban Items Completed and Who Completed Them - Sprint Review 3
@@ -52,33 +47,36 @@ This project is a news aggregating site that allows for users to rate articles b
 - Service Definition(s) - Mason Josefchuk
 - Move and Refactor test data - Mason Josefchuk
 - Shared-page-state Refactor - Mason Josfchuk/Peter Firlotte/Cj Gonzales
-- Individual Repository Definition(s) and Integration - Mason Josefchuk
-- Test Data - Mason Josefchuk
-- New/Refactor Component - Mason Josfchuk
-- Architecture Layout Document - Mason Josefchuk
-- Individual Repository Definition(s) and Integration - Peter Firlotte
-- Test Data - Peter Firlotte
-- New/Refactor Component - Peter Firlotte
-- Architecture Layout Document - Peter Firlotte
-- Individual Repository Definition(s) and Integration - Cj Gonzales
-- Test Data - Cj Gonzales
-- New/Refactor Component - Cj Gonzales
-- Architecture Layout Document - Cj Gonzales
+- Individual Repository Definition(s) and Integration - Mason Josefchuk/Cj Gonzales/Peter Firlotte
+- Test Data - Mason Josefchuk/Cj Gonzales/Peter Firlotte
+- New/Refactor Component - Mason Josfchuk/Cj Gonzales/Peter Firlotte
+- Architecture Layout Document - Mason Josefchuk/Cj Gonzales/Peter Firlotte
   
 ## Kanban Items Completed and Who Completed Them - Sprint Review 4
 
 - Development SQL Database - Mason Josefchuk
-- Back-end App Initialization - Mason Josefchuk, Peter Firlotte, CJ Gonzales
+- Back-end App Initialization - Mason Josefchuk/Peter Firlotte/CJ Gonzales
 - Update Vercel Deployment - Peter Firlotte
 - Prisma and Client Initialization - Peter Firlotte
 - Reorganize React Hooks - Mason Josefchuk
 - Setup base front & backend setup files - Peter Firlotte
 - Setup Vercell files - Peter Firlotte
 - Backend Cors configuration - Peter Firlotte
-- Front-end sends requests to back-end - Mason Josefchuk, Peter Firlotte, CJ Gonzales
-- Resource Data Schemas - Mason Josefchuk, Peter Firlotte, CJ Gonzales
-- Backend Resource Endpoints - Mason Josefchuk, Peter Firlotte, CJ Gonzales
-- Application State Persistence - Mason Josefchuk, Peter Firlotte, CJ Gonzales
+- Front-end sends requests to back-end - Mason Josefchuk/Peter Firlotte/CJ Gonzales
+- Resource Data Schemas - Mason Josefchuk/Peter Firlotte/CJ Gonzales
+- Backend Resource Endpoints - Mason Josefchuk/Peter Firlotte/CJ Gonzales
+- Application State Persistence - Mason Josefchuk/Peter Firlotte/CJ Gonzales
+
+## Kanban Items Completed and Who Completed Them - Sprint Review 5
+
+- Clerk Auth Setup - Peter Firlotte
+- Team Vercel Account/Management - Peter Firlotte
+- Back-end User Management - Mason Josefchuk/Cj Gonzales/Peter Firlotte
+- Refactoring Article Hiding Relationship for Users - Mason Josefchuk
+- User Login/Registration - Peter Firlotte
+- Local Setup Instructions - Mason Josefchuk
+- Custom User-Associated Data and Session Management - Mason Josefchuk/Cj Gonzales/Peter Firlotte
+- Project Retrospective - Mason Josefchuk/Cj Gonzales/Peter Firlotte
 
 ## Local Project Setup instructions
 ### Installing Dependencies
