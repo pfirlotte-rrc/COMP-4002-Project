@@ -2,11 +2,14 @@ import express, {Express} from "express";
 import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
+import { clerkMiddleware } from "@clerk/express";
+
 import corsOptions from "../config/cors";
 import setupSwagger from "../config/swagger";
-import ratingRoutes from "./routes/ratingRoutes";
-// import termRoutes from "./api/v1/routes/termRoutes";
-// import errorHandler from "./api/v1/middleware/errorHandler";
+import ratingRoutes from "./api/v1/routes/ratingRoutes";
+import hiddenArticleRoutes from "./api/v1/routes/hiddenArticleRoutes";
+import categoryRoutes from "./api/v1/routes/categoryRoutes";
+import errorHandler from "./api/v1/middleware/errorHandler";
 
 // initialize express application
 const app: Express = express();
@@ -24,6 +27,9 @@ app.use(express.json());
 // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS
 app.use(cors(corsOptions));
 
+// add clerk middleware
+app.use(clerkMiddleware());
+
 // invoke swagger middleware for serving docs in /api-docs
 setupSwagger(app);
 
@@ -32,12 +38,17 @@ app.get("/",  (_req, res) => {
     res.send("Got response from backend!");
 });
 
-app.use("/articles", ratingRoutes);
-// use termRoutes
-// app.use("/api/v1", termRoutes);
+// Use Articles routes
+app.use("/api/v1/articles", ratingRoutes);
+
+// Use Categories routes
+app.use("/api/v1/categories", categoryRoutes);
+
+// Use HiddenArticle routes
+app.use("/api/v1", hiddenArticleRoutes);
 
 //errorhandler catches errors as last element in middleware chain
 // occurs when "next" is invoked
-// app.use(errorHandler); 
+app.use(errorHandler); 
 
 export default app;

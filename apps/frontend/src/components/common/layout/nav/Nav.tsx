@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
 import { validateSearch } from "../../../../services/searchService";
 import { useState } from 'react';
 import SearchBar from "../../../search-bar/searchBar";                 
@@ -14,7 +15,8 @@ const navBarPages: Page[] = [
     {title: "Home", pageLink: "/"},
     {title: "Popular", pageLink: "/popular"},
     {title: "Recent", pageLink: "/recent"},
-    {title: "User Profile", pageLink: "/userprofile"},
+    {title: "Categories", pageLink: "/categories"},
+    // {title: "User Profile", pageLink: "/userprofile"},
 ];
 
 function Nav() {
@@ -51,17 +53,24 @@ function Nav() {
          <div className="nav-links">
             <ListPageDisplay pages={navBarPages}/>
         </div>
-        <div className="user-login">
-            <span>
-                <a href="#logon">Log In</a>
-            </span>
-        </div>
         <section className="search-bar">
             <form onSubmit={searchSubmit}>
                 <SearchBar name={searchTerm} onChange={handleSearchChange} messages={searchMessages} hideLabel={true}/>
                 <button type="submit">Search</button>
             </form>
         </section>
+            {/* Components receive sign-in state from ClerkProvider in <main> */}
+            <div className="user-management-links">
+                {/* clerk-provided components */}
+                <SignedOut>
+                    {/* renders when user is signed out. Directs to clerk-provided sign-in page */}
+                    <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                    {/* renders when user is signed in */}
+                    <UserButton />
+                </SignedIn>
+            </div>
     </nav>;
 }
 

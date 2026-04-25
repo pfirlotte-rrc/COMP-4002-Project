@@ -14,22 +14,24 @@ datasource db {
 }
 
 model Article {
-  id            Int @id @default(autoincrement())
-  name          String
-  newsArticle   String
-  publishDate   DateTime
-  description   String
-  views         Int
-  ratings       Rating[]
-  categories    Category[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id          Int             @id @default(autoincrement())
+  name        String
+  newsArticle String
+  publishDate DateTime
+  description String
+  views       Int
+  ratings     Rating[]
+  categories  Category[]
+  hiddenBy    HiddenArticle[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 }
 
 model Rating {
+<<<<<<< 117-i1-custom-user--data--and--management---peter
   ratingId      Int @id @default(autoincrement())
   articleId     Int
-  userId        Int
+  userId        String
   value         Int
   user          User @relation(fields: [userId], references: [userId])
   article       Article @relation(fields: [articleId], references: [id])
@@ -38,17 +40,73 @@ model Rating {
 } 
 
 model User {  
-  userId        Int @id @default(autoincrement())
-  userName      String @unique
-  ratings       Rating[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  userId         String @id @default(uuid())
+  userName       String @unique
+  ratings        Rating[]
+  hiddenArticles HiddenArticle[]
+  categories     Category[]
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model Category {  
   categoryId    Int @id @default(autoincrement())
+  userId        String?
   categoryName  String @unique
   articles      Article[]
+  createdBy     User? @relation(fields: [userId], references: [userId])
+  
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+}
+
+model HiddenArticle {
+  id          Int      @id @default(autoincrement())
+  articleId   Int
+  userId      String
+  hiddenAt    DateTime @default(now())
+=======
+  ratingId  Int      @id @default(autoincrement())
+  articleId Int
+  userId    String
+  value     Int
+  user      User     @relation(fields: [userId], references: [userId])
+  article   Article  @relation(fields: [articleId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  userId         String          @id @default(uuid())
+  userName       String          @unique
+  ratings        Rating[]
+  hiddenArticles HiddenArticle[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  categories     Category[]
+}
+
+model Category {
+  categoryId   Int       @id @default(autoincrement())
+  userId       String?
+  categoryName String    @unique
+  articles     Article[]
+  createdBy    User?     @relation(fields: [userId], references: [userId])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HiddenArticle {
+  id        Int      @id @default(autoincrement())
+  articleId Int
+  userId    String
+  hiddenAt  DateTime @default(now())
+
+  article Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [userId], onDelete: Cascade)
+>>>>>>> develop
+
+  @@unique([articleId, userId])
 }

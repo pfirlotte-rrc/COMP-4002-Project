@@ -16,11 +16,12 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
     // clear table
     await prisma.rating.deleteMany();
+    await prisma.hiddenArticle.deleteMany();
     await prisma.article.deleteMany();
     await prisma.user.deleteMany();
     await prisma.category.deleteMany();
 
-    // insert terms to db
+    // insert categories to db
     const assignArticles = [];
     for (const article of articleSeedData) {
         const created = await prisma.article.create({ data: article });

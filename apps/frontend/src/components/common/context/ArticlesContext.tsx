@@ -13,15 +13,16 @@ interface ArticlesContextType {
   hiddenArticles: string[];
   loading: boolean;
 
-  incrementViewCount: (articleId: number) => void;
-  updateRating: (articleId: number, userId: number, value: number) => void;
+  incrementViewCount: (articleId: number) => Promise<void>;
+  updateRating: (articleId: number, userId: number, token: string) => Promise<void>;
 
   calculateAverageRating: (ratings: Rating[]) => number;
   hasUserRated: (articleId: number, userId: number) => boolean;
 
   addArticle: (article: Article) => void;
-  hideArticle: (name: string) => void;
-  showArticle: (name: string) => void;
+  hideArticle: (name: string) => Promise<void>;
+  showArticle: (name: string) => Promise<void>;
+  refreshHiddenArticles: () => Promise<void>;
 }
 
 export const ArticlesContext = createContext<ArticlesContextType | undefined>(undefined);
@@ -31,25 +32,44 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
   const [hiddenArticles, setHiddenArticles] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchArticles = async () => {
+  try {
+    const res = await fetch("http://localhost:3000/api/v1/articles");
+    if (!res.ok) {
+      const errorBody = await res.text();
+      throw new Error(`HTTP ${res.status}: ${errorBody}`);
+    }
+    const data = await res.json();
+    setArticles(data);
+  } catch (error) {
+    console.error("Failed to fetch articles:", error);
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
-    const fetchArticles = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/articles");
-        const data = await res.json();
-        setArticles(data);
-      } catch (error) {
-        console.error("Failed to fetch articles:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchArticles();
+    fetchHiddenArticles();
   }, []);
+
+  // Retrieves the current amount of hidden articles.
+  const fetchHiddenArticles = async () => {
+    try {
+      const hidden = await HiddenArticlesService.getHidden();
+      setHiddenArticles(hidden);
+    } catch (error) {
+      console.error("Failed to fetch hidden articles:", error);
+    }
+  };
+
+  // reloads the hidden area to show the articles currently in it.
+  const refreshHiddenArticles = async () => {
+    await fetchHiddenArticles();
+  };
 
   const incrementViewCount = async (articleId: number) => {
     try {
-      await fetch(`http://localhost:3000/articles/${articleId}/view`, {
+      await fetch(`http://localhost:3000/api/v1/articles/${articleId}/view`, {
         method: "POST",
       });
 
@@ -65,34 +85,25 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const updateRating = async (
-    articleId: number,
-    userId: number,
-    value: number
-  ) => {
-    try {
-      await fetch(`http://localhost:3000/articles/${articleId}/rate`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId, rating: value }),
-      });
-
-      setArticles(prev =>
-        prev.map(a =>
-          a.id === articleId
-            ? {
-                ...a,
-                ratings: [...(a.ratings || []), { userId, value }],
-              }
-            : a
-        )
-      );
-    } catch (error: any) {
-      alert(error.message);
-    }
-  };
+ const updateRating = async (
+  articleId: number,
+  value: number,
+  token: string
+) => {
+  try {
+    await fetch(`http://localhost:3000/api/v1/articles/${articleId}/rate`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ rating: value }),
+    });
+    await fetchArticles(); 
+  } catch (error: any) {
+    alert(error.message);
+  }
+};
 
   const hasUserRated = (articleId: number, userId: number) => {
     const article = articles.find(a => a.id === articleId);
@@ -112,19 +123,19 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
   };
 
 
-  const hideArticle = (name: string) => {
+  const hideArticle = async (name: string) => {
     try {
-      HiddenArticlesService.hideArticle(name);
-      setHiddenArticles(HiddenArticlesService.getHidden());
+      await HiddenArticlesService.hideArticle(name);
+      await refreshHiddenArticles();
     } catch (error: any) {
       alert(error.message);
     }
   };
 
-  const showArticle = (name: string) => {
+  const showArticle = async (name: string) => {
     try {
-      HiddenArticlesService.showArticle(name);
-      setHiddenArticles(HiddenArticlesService.getHidden());
+      await HiddenArticlesService.showArticle(name);
+      await refreshHiddenArticles();
     } catch (error: any) {
       alert(error.message);
     }
@@ -143,6 +154,7 @@ export const ArticlesProvider = ({ children }: { children: ReactNode }) => {
         addArticle,
         hideArticle,
         showArticle,
+        refreshHiddenArticles,
       }}
     >
       {children}

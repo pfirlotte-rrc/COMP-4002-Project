@@ -1,5 +1,3 @@
-// import { Article } from "@prisma/client"
-
 export const articleSeedData = [
   {
     name: "TypeScript Date Tutorials",

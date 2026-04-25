@@ -4,6 +4,7 @@ import { ArticlesProvider } from './components/common/context/ArticlesContext';
 import Landing from './components/common/rated-list/Landing'
 import Popular from "./components/pages/Popular"
 import Recent from "./components/pages/Recent";
+import CategoriesPage from "./components/pages/Categories";
 import UserProfile from "./components/pages/UserProfile";
 import SearchResults from "./components/pages/SearchResults";
 import "./App.css"
@@ -29,6 +30,10 @@ function App() {
 
             <Route path="/recent"> 
               <Route index element={<Recent/>} />
+            </Route>
+
+            <Route path="/categories"> 
+              <Route index element={<CategoriesPage/>} />
             </Route>
 
             <Route path="/userprofile"> 
